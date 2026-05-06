@@ -5,371 +5,447 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The Baker Street Archives | Muhammad Hamza</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,600&family=Pinyon+Script&display=swap');
 
         :root {
-            --bg-dark: #0a0a0c;
-            --bg-panel: #16161a;
-            --text-main: #d9d4c5;
-            --text-muted: #8c8574;
-            --accent-gold: #b38b36;
-            --accent-crimson: #5c1616;
-            --border-ornate: double 4px var(--accent-gold);
+            --bg-void: #030304;
+            --bg-parchment-dark: rgba(20, 18, 18, 0.85);
+            --text-primary: #e6e1d3;
+            --text-secondary: #9a927d;
+            --gold-light: #e8c97a;
+            --gold-mid: #b99346;
+            --gold-dark: #6e5421;
+            --blood-crimson: #4a0909;
+            --border-intricate: 2px solid var(--gold-dark);
         }
 
-        body {
+        body, html {
             margin: 0;
             padding: 0;
-            background-color: var(--bg-dark);
-            background-image: radial-gradient(circle at 50% 0%, #1f1f24 0%, var(--bg-dark) 70%);
-            color: var(--text-main);
+            width: 100%;
+            min-height: 100vh;
+            background-color: var(--bg-void);
             font-family: 'Cormorant Garamond', serif;
-            line-height: 1.6;
+            color: var(--text-primary);
             overflow-x: hidden;
+            scroll-behavior: smooth;
         }
 
-        /* Gothic Typography */
-        h1, h2, h3, h4 {
-            font-family: 'Cinzel', serif;
+        /* Ethereal Atmospheric Background */
+        .ambient-background {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: radial-gradient(circle at 50% 30%, rgba(25, 20, 15, 0.6) 0%, var(--bg-void) 70%),
+                        url('https://www.transparenttextures.com/patterns/stucco.png');
+            z-index: -2;
+            pointer-events: none;
+        }
+
+        /* Floating Dust/Embers */
+        .dust-container {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: -1;
+            pointer-events: none;
+            overflow: hidden;
+        }
+        .dust {
+            position: absolute;
+            background-color: var(--gold-light);
+            border-radius: 50%;
+            opacity: 0;
+            animation: float-dust 15s infinite ease-in-out;
+            box-shadow: 0 0 10px var(--gold-light);
+        }
+        @keyframes float-dust {
+            0% { transform: translateY(100vh) scale(0); opacity: 0; }
+            20% { opacity: 0.4; }
+            80% { opacity: 0.4; }
+            100% { transform: translateY(-10vh) scale(1.5); opacity: 0; }
+        }
+
+        /* Typography */
+        h1, h2, h3 {
+            font-family: 'Cinzel Decorative', serif;
             font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            color: var(--accent-gold);
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+            text-align: center;
+            margin: 0;
+            background: linear-gradient(to bottom, var(--gold-light), var(--gold-mid), var(--gold-dark));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0px 4px 15px rgba(185, 147, 70, 0.2);
         }
 
-        /* Navigation / Header */
+        /* Header Artifact */
         header {
+            position: relative;
+            padding: 6rem 2rem 4rem;
             text-align: center;
-            padding: 4rem 2rem;
-            border-bottom: var(--border-ornate);
-            background: linear-gradient(to bottom, rgba(10,10,12,0.9), rgba(22,22,26,0.9)), url('https://www.transparenttextures.com/patterns/dark-matter.png');
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.9);
+            border-bottom: 1px solid var(--gold-dark);
+            background: linear-gradient(to bottom, rgba(3,3,4,0.9), rgba(20,18,18,0.7));
+            box-shadow: 0 10px 40px rgba(0,0,0,0.9);
+        }
+        header::after {
+            content: '';
+            position: absolute;
+            bottom: 4px; left: 0; width: 100%; height: 1px;
+            background: var(--gold-dark);
         }
 
         .site-title {
-            font-size: 3.5rem;
-            margin: 0;
-            background: -webkit-linear-gradient(var(--accent-gold), #d4af37, #6b5320);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            font-size: 4.5rem;
+            letter-spacing: 4px;
+            line-height: 1.1;
         }
 
         .site-subtitle {
-            font-family: 'Playfair Display', serif;
-            font-style: italic;
-            font-size: 1.2rem;
-            color: var(--text-muted);
-            margin-top: 10px;
+            font-family: 'Pinyon Script', cursive;
+            font-size: 2.2rem;
+            color: var(--text-secondary);
+            margin-top: 15px;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.8);
         }
 
-        /* Tabs Interface */
-        .tabs-container {
-            max-width: 1000px;
-            margin: -25px auto 0;
-            display: flex;
-            justify-content: center;
-            gap: 10px;
-            position: relative;
-            z-index: 10;
-        }
-
-        .tab-btn {
-            background-color: var(--bg-panel);
-            color: var(--accent-gold);
-            border: 2px solid var(--accent-gold);
-            border-bottom: none;
-            padding: 12px 30px;
-            font-family: 'Cinzel', serif;
-            font-size: 1rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 -5px 15px rgba(0, 0, 0, 0.5);
-        }
-
-        .tab-btn:hover {
-            background-color: var(--accent-crimson);
-            color: var(--text-main);
-        }
-
-        .tab-btn.active {
-            background-color: var(--accent-crimson);
-            color: white;
-            border-top: 4px solid var(--accent-gold);
-        }
-
-        /* Main Content Area */
-        main {
-            max-width: 1000px;
+        /* Main Container */
+        .artifact-container {
+            max-width: 1100px;
             margin: 0 auto;
             padding: 4rem 2rem;
         }
 
-        .tab-content {
-            display: none;
-            animation: fadeIn 0.8s ease-in-out;
-        }
-
-        .tab-content.active {
-            display: block;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* Author Section */
-        .author-card {
-            background-color: rgba(22, 22, 26, 0.8);
-            border: 1px solid #333;
-            padding: 3rem;
+        /* The Author's Portrait - A Work of Art */
+        .author-artifact {
             position: relative;
-            box-shadow: inset 0 0 50px rgba(0,0,0,0.8), 0 10px 20px rgba(0,0,0,0.5);
+            background: rgba(15, 12, 10, 0.6);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid var(--gold-dark);
+            padding: 4rem 5rem;
+            margin-bottom: 6rem;
+            box-shadow: inset 0 0 80px rgba(0,0,0,0.9), 0 20px 50px rgba(0,0,0,0.8);
+            transition: all 0.5s ease;
         }
-
-        .author-card::before {
+        
+        .author-artifact::before {
             content: '';
             position: absolute;
-            top: 10px; left: 10px; right: 10px; bottom: 10px;
-            border: 1px solid var(--accent-gold);
-            opacity: 0.3;
+            top: -10px; left: -10px; right: -10px; bottom: -10px;
+            border: 1px solid rgba(185, 147, 70, 0.3);
             pointer-events: none;
         }
 
-        .author-bio {
+        .author-artifact::after {
+            content: '✒';
+            position: absolute;
+            top: -25px; left: 50%;
+            transform: translateX(-50%);
+            font-size: 2rem;
+            color: var(--gold-mid);
+            background: var(--bg-void);
+            padding: 0 15px;
+        }
+
+        .author-artifact:hover {
+            box-shadow: inset 0 0 100px rgba(74, 9, 9, 0.3), 0 20px 60px rgba(0,0,0,0.9);
+            border-color: var(--gold-mid);
+        }
+
+        .author-title {
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            letter-spacing: 3px;
+        }
+
+        .author-prose {
             font-size: 1.25rem;
+            line-height: 1.9;
             text-align: justify;
+            color: var(--text-primary);
         }
 
-        .author-bio p::first-letter {
-            font-family: 'Cinzel', serif;
-            font-size: 3.5rem;
+        .author-prose p {
+            margin-bottom: 1.5rem;
+        }
+
+        .drop-cap {
             float: left;
-            margin-right: 8px;
-            line-height: 1;
-            color: var(--accent-crimson);
+            font-family: 'Cinzel Decorative', serif;
+            font-size: 4.5rem;
+            line-height: 0.8;
+            padding-right: 12px;
+            padding-top: 6px;
+            color: var(--blood-crimson);
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
         }
 
-        /* Story Grid */
-        .story-grid {
+        .philosophical-quote {
+            text-align: center;
+            font-family: 'Pinyon Script', cursive;
+            font-size: 2.4rem;
+            color: var(--gold-light);
+            margin: 3rem 0 1rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(185, 147, 70, 0.2);
+        }
+
+        /* The Archives - Story Grid */
+        .section-header {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .section-desc {
+            text-align: center;
+            font-style: italic;
+            color: var(--text-secondary);
+            margin-bottom: 4rem;
+            font-size: 1.2rem;
+        }
+
+        .manuscript-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-            gap: 2rem;
+            grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+            gap: 3rem;
         }
 
-        .story-card {
-            background-color: var(--bg-panel);
-            border: 1px solid #2a2a30;
-            padding: 2rem;
+        .manuscript-card {
             position: relative;
-            transition: transform 0.4s ease, box-shadow 0.4s ease;
+            background: linear-gradient(135deg, rgba(20, 18, 18, 0.9), rgba(10, 8, 8, 0.95));
+            border: 1px solid #2a2218;
+            padding: 3rem;
+            text-decoration: none;
+            display: block;
             overflow: hidden;
+            transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.5s ease, border-color 0.5s ease;
         }
 
-        .story-card::after {
+        /* Card Ornaments */
+        .manuscript-card::before {
             content: '';
             position: absolute;
-            top: 0; left: 0; width: 100%; height: 4px;
-            background: linear-gradient(90deg, transparent, var(--accent-crimson), transparent);
+            top: 10px; left: 10px; right: 10px; bottom: 10px;
+            border: 1px solid rgba(185, 147, 70, 0.1);
+            transition: border-color 0.5s ease;
+        }
+
+        .manuscript-card::after {
+            content: '';
+            position: absolute;
+            bottom: 0; left: 0; width: 100%; height: 3px;
+            background: linear-gradient(90deg, transparent, var(--blood-crimson), transparent);
             transform: scaleX(0);
-            transition: transform 0.4s ease;
+            transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
         }
 
-        .story-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.8);
-            border-color: #444;
+        .manuscript-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.9), 0 0 30px rgba(74, 9, 9, 0.4);
+            border-color: var(--gold-dark);
         }
 
-        .story-card:hover::after {
+        .manuscript-card:hover::before {
+            border-color: rgba(185, 147, 70, 0.4);
+        }
+
+        .manuscript-card:hover::after {
             transform: scaleX(1);
         }
 
+        .story-number {
+            font-family: 'Cinzel Decorative', serif;
+            font-size: 1.2rem;
+            color: var(--blood-crimson);
+            margin-bottom: 1rem;
+            display: block;
+            letter-spacing: 2px;
+        }
+
         .story-title {
-            font-size: 1.5rem;
-            margin-top: 0;
-            border-bottom: 1px solid #333;
-            padding-bottom: 10px;
+            font-size: 1.8rem;
+            color: var(--gold-light);
+            margin-bottom: 1.5rem;
+            line-height: 1.3;
         }
 
-        .story-excerpt {
+        .story-blurb {
             font-size: 1.1rem;
-            color: var(--text-muted);
-            margin-bottom: 2rem;
+            color: var(--text-secondary);
             font-style: italic;
+            margin-bottom: 2rem;
         }
 
-        .read-btn {
-            display: inline-block;
-            background-color: transparent;
-            color: var(--accent-gold);
-            text-decoration: none;
-            font-family: 'Cinzel', serif;
-            font-size: 0.9rem;
-            letter-spacing: 1px;
-            border: 1px solid var(--accent-gold);
-            padding: 10px 20px;
-            transition: all 0.3s ease;
+        .read-action {
+            font-family: 'Cinzel Decorative', serif;
+            font-size: 1rem;
+            color: var(--gold-mid);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
         }
 
-        .read-btn:hover {
-            background-color: var(--accent-gold);
-            color: var(--bg-dark);
-            box-shadow: 0 0 15px rgba(179, 139, 54, 0.4);
+        .read-action::after {
+            content: '→';
+            font-size: 1.2rem;
+            transition: transform 0.3s ease;
         }
 
-        /* Footer */
-        footer {
-            text-align: center;
-            padding: 2rem;
-            border-top: 1px solid #333;
-            color: var(--text-muted);
-            font-size: 0.9rem;
-            background-color: var(--bg-dark);
+        .manuscript-card:hover .read-action::after {
+            transform: translateX(10px);
+            color: var(--gold-light);
         }
 
-        /* Wax Seal Decoration */
+        /* Wax Seal */
         .wax-seal {
-            width: 60px;
-            height: 60px;
-            background: radial-gradient(circle at 30% 30%, #a02020, var(--accent-crimson) 60%, #300 100%);
+            width: 70px;
+            height: 70px;
+            background: radial-gradient(circle at 35% 35%, #a02020, #5c1616 50%, #2a0000 100%);
             border-radius: 50%;
             margin: 0 auto 20px;
-            box-shadow: 2px 2px 5px rgba(0,0,0,0.8), inset 0 0 10px rgba(0,0,0,0.5);
+            box-shadow: 3px 3px 10px rgba(0,0,0,0.9), inset 0 0 15px rgba(0,0,0,0.6);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-family: 'Cinzel', serif;
-            font-weight: bold;
-            color: rgba(255,255,255,0.7);
-            font-size: 1.5rem;
-            text-shadow: 1px 1px 2px #000;
+            position: relative;
+        }
+
+        .wax-seal::after {
+            content: 'H';
+            font-family: 'Cinzel Decorative', serif;
+            font-size: 2rem;
+            color: rgba(255, 255, 255, 0.6);
+            text-shadow: -1px -1px 2px rgba(0,0,0,0.8), 1px 1px 2px rgba(255,255,255,0.2);
+            font-weight: 900;
+        }
+
+        footer {
+            border-top: 1px solid var(--gold-dark);
+            padding: 3rem;
+            text-align: center;
+            background: rgba(3,3,4,0.9);
+            margin-top: 4rem;
+        }
+
+        .footer-text {
+            color: var(--text-secondary);
+            font-size: 1rem;
+            margin: 0;
+        }
+
+        .latin-motto {
+            font-family: 'Cinzel Decorative', serif;
+            color: var(--gold-dark);
+            margin-top: 10px;
+            letter-spacing: 4px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .site-title { font-size: 2.8rem; }
+            .author-artifact { padding: 2rem; }
+            .author-title { font-size: 2rem; }
+            .drop-cap { font-size: 3.5rem; }
         }
     </style>
 </head>
 <body>
 
+    <div class="ambient-background"></div>
+    <div class="dust-container" id="dust-container"></div>
+
     <header>
-        <div class="wax-seal">H</div>
+        <div class="wax-seal"></div>
         <h1 class="site-title">The Baker Street Archives</h1>
-        <p class="site-subtitle">"Where the analytical mind meets the profound melancholy of the human soul."</p>
+        <div class="site-subtitle">Exhuming the shadows of logic and the poetry of deduction.</div>
     </header>
 
-    <div class="tabs-container">
-        <button class="tab-btn active" onclick="openTab('archives')">The Manuscripts</button>
-        <button class="tab-btn" onclick="openTab('author')">About the Author</button>
-        <button class="tab-btn" onclick="openTab('study')">221B Study</button>
+    <div class="artifact-container">
+        
+        <!-- The Masterpiece Author Bio -->
+        <article class="author-artifact">
+            <h2 class="author-title">The Chronicler: Muhammad Hamza</h2>
+            <div class="author-prose">
+                <p><span class="drop-cap">A</span>n intellect residing in the esoteric twilight where the immutable, cold laws of chemical thermodynamics intersect with the haunting, fragile complexities of the human soul. Within the hallowed, rigorous corridors of IIT Kharagpur, Hamza stands as an architect of artificial cognition. He is a master of the invisible forces that govern our world, engineering Deep Operator Networks and physics-informed matrices that bind the chaotic, fluid dynamics of physical reality into a state of deterministic elegance. He parses the hidden, uncorrelated alphas of global quantitative markets with the surgical precision of a savant.</p>
+                
+                <p>Yet, when the daylight fades, the equations are set aside, and the gas lamps flicker to life, the engineer retreats into the shadows, and the philosopher emerges. Driven by a profound, almost aching appreciation for melancholic literature and the gothic grandeur of Victorian prose, he breathes dark, new life into the foggy, cobblestone streets of Arthur Conan Doyle’s London.</p>
+
+                <p>His pastiches are not merely written; they are meticulously engineered. Each narrative serves as a delicate, soul-wrecking calculus of metaphor and sophisticated sorrow. He wields the English language as both a scalpel and a shroud, exploring the terrifying precipice where absolute logic meets the madness of human greed. Hamza’s work proves a deeply gothic truth: while machines may perfectly solve the continuous, unbroken functions of the physical universe, it is the fractured, inherently tragic nature of the human heart that remains the ultimate, unsolvable mystery.</p>
+                
+                <div class="philosophical-quote">
+                    "To engineer the mind is science. To understand its inevitable tragedy is art."
+                </div>
+            </div>
+        </article>
+
+        <!-- The Manuscripts Grid -->
+        <h2 class="section-header">The Unsealed Manuscripts</h2>
+        <p class="section-desc">Four distinct tragedies, transcribed from the darkest corners of Dr. Watson's dispatch box.</p>
+
+        <div class="manuscript-grid">
+            
+            <a href="sentient-calculus.html" class="manuscript-card">
+                <span class="story-number">Record I</span>
+                <h3 class="story-title">The Adventure of the Sentient Calculus</h3>
+                <p class="story-blurb">A brilliant Cambridge mathematician deduces the absolute mathematical formula for human malice, only to be murdered by the very variables he sought to control.</p>
+                <div class="read-action">Break the Seal</div>
+            </a>
+
+            <a href="alchemists-network.html" class="manuscript-card">
+                <span class="story-number">Record II</span>
+                <h3 class="story-title">The Enigma of the Alchemist's Network</h3>
+                <p class="story-blurb">Deep in the subterranean bowels of Southwark, an impossible machine of brass and fluid dynamics enacts a lethal shock wave upon its creator.</p>
+                <div class="read-action">Break the Seal</div>
+            </a>
+
+            <a href="quantitative-ghost.html" class="manuscript-card">
+                <span class="story-number">Record III</span>
+                <h3 class="story-title">The Mystery of the Quantitative Ghost</h3>
+                <p class="story-blurb">The London Exchange bleeds capital to an unseen, algorithmic phantom, forcing Holmes to hunt a continuous mathematical function across the desolate Yorkshire moors.</p>
+                <div class="read-action">Break the Seal</div>
+            </a>
+
+            <a href="obsidian-aether.html" class="manuscript-card">
+                <span class="story-number">Record IV</span>
+                <h3 class="story-title">The Tragedy of the Obsidian Aether</h3>
+                <p class="story-blurb">An astronomer captures photographic proof of a dying, lightless star, triggering a murder driven by the existential terror of a profoundly indifferent universe.</p>
+                <div class="read-action">Break the Seal</div>
+            </a>
+
+        </div>
+
     </div>
 
-    <main>
-        <!-- The Manuscripts Tab -->
-        <div id="archives" class="tab-content active">
-            <div style="text-align: center; margin-bottom: 3rem;">
-                <h2>Unpublished Cases of Mr. Sherlock Holmes</h2>
-                <p style="color: var(--text-muted); font-style: italic; max-width: 600px; margin: 0 auto;">
-                    Transcribed from the private tin dispatch-box of John H. Watson, M.D. Presented here in their entirety, devoid of the heavy redactions demanded by the Crown.
-                </p>
-            </div>
-
-            <div class="story-grid">
-                <!-- Story 1 -->
-                <article class="story-card">
-                    <h3 class="story-title">I. The Adventure of the Sentient Calculus</h3>
-                    <p class="story-excerpt">
-                        "It was a bitter night in November when a mathematical genius from Cambridge arrived upon our step, drenched in rain and trembling. In his grasp was a ledger filled not with sums, but with a series of equations that Holmes deduced could accurately predict the moral collapse of a man's soul. The game was afoot, taking us into the darkened laboratories of a mad philosopher."
-                    </p>
-                    <a href="sentient-calculus.html" class="read-btn">Unseal Manuscript</a>
-                </article>
-
-                <!-- Story 2 -->
-                <article class="story-card">
-                    <h3 class="story-title">II. The Enigma of the Alchemist's Network</h3>
-                    <p class="story-excerpt">
-                        "Holmes sat in a deep silence, his pipe emitting slow, rhythmic clouds of blue smoke. Before us lay the blueprint of an impossible chemical engine, designed to weave physical reality from numerical theory. The architect was dead, his throat crushed, yet the machine still whispered in the basement of the Royal Society."
-                    </p>
-                    <a href="alchemists-network.html" class="read-btn">Unseal Manuscript</a>
-                </article>
-
-                <!-- Story 3 -->
-                <article class="story-card">
-                    <h3 class="story-title">III. The Mystery of the Quantitative Ghost</h3>
-                    <p class="story-excerpt">
-                        "The markets of London were bleeding, bled dry by an unseen force operating with cold, algorithmic precision. Ten thousand points of data led to a singular, isolated manor in the moors, where a disgraced broker had seemingly defied the laws of probability—and mortality—to enact his perfect, uncorrelated revenge."
-                    </p>
-                    <a href="quantitative-ghost.html" class="read-btn">Unseal Manuscript</a>
-                </article>
-
-                <!-- Story 4 -->
-                <article class="story-card">
-                    <h3 class="story-title">IV. The Tragedy of the Obsidian Aether</h3>
-                    <p class="story-excerpt">
-                        "There is a darkness, Watson, that exists beyond the mere absence of light,' Holmes murmured. We were observing the remains of an observatory in Greenwich. The astronomer had sought the absolute limits of collapsed stars, but in his pursuit of the celestial void, he had invited a deeply terrestrial murderer into his sanctum."
-                    </p>
-                    <a href="obsidian-aether.html" class="read-btn">Unseal Manuscript</a>
-                </article>
-            </div>
-        </div>
-
-        <!-- About the Author Tab -->
-        <div id="author" class="tab-content">
-            <div class="author-card">
-                <h2>The Chronicler</h2>
-                <div class="author-bio">
-                    <p>
-                        Muhammad Hamza resides at the intricate intersection of rigorous science and profound literary melancholy. An engineer of both complex machines and intricate mysteries, his academic pursuits in Artificial Intelligence and Chemical Engineering at the esteemed IIT Kharagpur provide a razor-sharp, analytical foundation akin to Holmes himself. 
-                    </p>
-                    <p>
-                        Yet, it is in the quiet, candle-lit hours of the night that his true passion breathes. Drawing inspiration from the solemnity of philosophical prose and the gothic atmosphere of Victorian London, Hamza resurrects the timeless spirit of Arthur Conan Doyle. His pastiches do not merely mimic a style; they infuse the classic detective narrative with sophisticated modern intellect, exploring the haunting depths of human nature through the lens of rigorous deduction.
-                    </p>
-                    <p style="text-align: center; margin-top: 2rem; color: var(--accent-gold); font-family: 'Cinzel', serif;">
-                        "To observe is science. To understand the tragedy within the observation is art."
-                    </p>
-                </div>
-            </div>
-        </div>
-
-        <!-- 221B Study (Extra Gothic Flair) -->
-        <div id="study" class="tab-content">
-            <div class="author-card" style="text-align: center;">
-                <h2>The Inner Sanctum</h2>
-                <p style="color: var(--text-muted); font-size: 1.2rem; max-width: 700px; margin: 0 auto 2rem;">
-                    A collection of esoteric tools, abandoned chemical apparatus, and philosophical treatises. The air is thick with the scent of shag tobacco and old paper.
-                </p>
-                <div style="display: flex; justify-content: center; gap: 20px; flex-wrap: wrap;">
-                    <button class="read-btn" style="border-style: dashed;">Examine the Persian Slipper</button>
-                    <button class="read-btn" style="border-style: dashed;">Inspect the Chemistry Desk</button>
-                    <button class="read-btn" style="border-style: dashed;">Read the Unanswered Correspondence</button>
-                </div>
-            </div>
-        </div>
-
-    </main>
-
     <footer>
-        <p>&copy; 2026 Muhammad Hamza. All original stories and philosophical musings are the intellectual property of the author.</p>
-        <p style="font-family: 'Cinzel', serif; font-size: 0.8rem; color: #444;">Ex Umbris Ad Lucem</p>
+        <p class="footer-text">&copy; 2026 Muhammad Hamza. The architecture of these mysteries remains the sole intellectual property of the author.</p>
+        <p class="latin-motto">EX UMBRIS AD LUCEM</p>
     </footer>
 
+    <!-- Script to generate ambient dust particles -->
     <script>
-        function openTab(tabName) {
-            // Hide all tab content
-            var i, tabcontent, tablinks;
-            tabcontent = document.getElementsByClassName("tab-content");
-            for (i = 0; i < tabcontent.length; i++) {
-                tabcontent[i].classList.remove("active");
-            }
+        document.addEventListener("DOMContentLoaded", function() {
+            const container = document.getElementById('dust-container');
+            const particleCount = 35; // Number of floating embers
 
-            // Remove 'active' class from all buttons
-            tablinks = document.getElementsByClassName("tab-btn");
-            for (i = 0; i < tablinks.length; i++) {
-                tablinks[i].classList.remove("active");
+            for (let i = 0; i < particleCount; i++) {
+                let dust = document.createElement('div');
+                dust.classList.add('dust');
+                
+                // Randomize properties for organic feel
+                let size = Math.random() * 3 + 1; // 1px to 4px
+                let posX = Math.random() * 100; // 0vw to 100vw
+                let delay = Math.random() * 15; // 0s to 15s delay
+                let duration = Math.random() * 10 + 10; // 10s to 20s animation
+                
+                dust.style.width = size + 'px';
+                dust.style.height = size + 'px';
+                dust.style.left = posX + 'vw';
+                dust.style.animationDelay = delay + 's';
+                dust.style.animationDuration = duration + 's';
+                
+                container.appendChild(dust);
             }
-
-            // Show current tab, and add 'active' class to the clicked button
-            document.getElementById(tabName).classList.add("active");
-            event.currentTarget.classList.add("active");
-        }
+        });
     </script>
 </body>
 </html>
