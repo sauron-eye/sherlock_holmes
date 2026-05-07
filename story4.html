@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Devil's Interval — A Sherlock Holmes Story</title>
+<link href="https://fonts.googleapis.com/css2?family=IM+Fell+English:ital@0;1&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Cinzel:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #1a1008;
+    --parchment: #f5edd6;
+    --parchment-dark: #e8dcc0;
+    --gold: #b8860b;
+    --gold-light: #d4a017;
+    --crimson: #8b1a1a;
+    --mist: #c8bfa8;
+    --shadow: rgba(0,0,0,0.6);
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background-color: #0d0a05;
+    background-image:
+      radial-gradient(ellipse at 20% 50%, rgba(40,25,5,0.8) 0%, transparent 60%),
+      radial-gradient(ellipse at 80% 20%, rgba(30,15,0,0.6) 0%, transparent 50%);
+    color: var(--parchment);
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 18px;
+    line-height: 1.9;
+    min-height: 100vh;
+  }
+  .back-nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    background: linear-gradient(to bottom, rgba(13,10,5,0.98), rgba(13,10,5,0.0));
+    padding: 1.2rem 3rem;
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+  }
+  .back-btn {
+    font-family: 'Cinzel', serif;
+    font-size: 0.75rem;
+    letter-spacing: 0.15em;
+    color: var(--gold);
+    text-decoration: none;
+    text-transform: uppercase;
+    border: 1px solid rgba(184,134,11,0.4);
+    padding: 0.5rem 1.2rem;
+    transition: all 0.3s;
+  }
+  .back-btn:hover { background: rgba(184,134,11,0.15); border-color: var(--gold); }
+  .story-header {
+    text-align: center;
+    padding: 8rem 2rem 4rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .story-header::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 50%; transform: translateX(-50%);
+    width: 1px; height: 6rem;
+    background: linear-gradient(to bottom, transparent, var(--gold));
+  }
+  .story-number {
+    font-family: 'Cinzel', serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.3em;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+    opacity: 0.8;
+  }
+  .story-title {
+    font-family: 'IM Fell English', serif;
+    font-size: clamp(2.2rem, 5vw, 3.8rem);
+    color: var(--parchment);
+    line-height: 1.2;
+    margin-bottom: 1rem;
+    text-shadow: 0 0 60px rgba(184,134,11,0.2);
+  }
+  .story-subtitle {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 1.1rem;
+    color: var(--mist);
+    margin-bottom: 2rem;
+  }
+  .ornament { color: var(--gold); font-size: 1.4rem; letter-spacing: 0.5rem; }
+  .story-meta {
+    display: flex;
+    justify-content: center;
+    gap: 3rem;
+    margin-top: 2rem;
+    font-family: 'Cinzel', serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    color: var(--mist);
+    text-transform: uppercase;
+    opacity: 0.7;
+  }
+  .story-body {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 2rem 2rem 6rem;
+  }
+  .chapter-divider {
+    text-align: center;
+    margin: 3.5rem 0;
+    color: var(--gold);
+    font-family: 'Cinzel', serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    position: relative;
+  }
+  .chapter-divider::before, .chapter-divider::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    width: 28%;
+    height: 1px;
+    background: linear-gradient(to right, transparent, rgba(184,134,11,0.6));
+  }
+  .chapter-divider::before { right: 55%; }
+  .chapter-divider::after { left: 55%; transform: scaleX(-1); }
+  p { margin-bottom: 1.4rem; color: #d8ccb0; text-align: justify; }
+  p:first-of-type::first-letter {
+    font-family: 'IM Fell English', serif;
+    font-size: 4.5rem;
+    float: left;
+    line-height: 0.75;
+    margin: 0.1em 0.1em 0 0;
+    color: var(--gold);
+    text-shadow: 2px 2px 8px rgba(0,0,0,0.5);
+  }
+  .dialogue { color: #e8dcc0; }
+  .scene-break {
+    text-align: center;
+    margin: 2.5rem 0;
+    color: var(--gold);
+    opacity: 0.5;
+    font-size: 1.2rem;
+    letter-spacing: 0.5rem;
+  }
+  blockquote {
+    border-left: 2px solid var(--gold);
+    margin: 2rem 0 2rem 1rem;
+    padding: 0.5rem 1.5rem;
+    font-style: italic;
+    color: var(--mist);
+    font-size: 1.05rem;
+  }
+  .footer-ornament {
+    text-align: center;
+    padding: 3rem;
+    color: var(--gold);
+    opacity: 0.4;
+    font-size: 1.5rem;
+    letter-spacing: 0.8rem;
+  }
+</style>
+</head>
+<body>
+
+<nav class="back-nav">
+  <a href="index.html" class="back-btn">← Back to Chronicles</a>
+</nav>
+
+<header class="story-header">
+  <div class="story-number">Story the Fourth</div>
+  <h1 class="story-title">The Devil's Interval</h1>
+  <div class="story-subtitle">Concerning Music, Madness, and a Most Peculiar Inheritance</div>
+  <div class="ornament">✦ ✦ ✦</div>
+  <div class="story-meta">
+    <span>Dr. John H. Watson, M.D.</span>
+    <span>Narrator</span>
+    <span>Baker Street, London</span>
+  </div>
+</header>
+
+<article class="story-body">
+
+<p>Holmes was not, in general, a man who spoke of his own emotional life with any freedom, and this reticence was so consistent and so obviously a matter of settled preference rather than incapacity that I had long since learned to respect it. Yet there was one domain — music — in which he permitted himself, occasionally and with a kind of reluctant acknowledgement, to reveal something of the interior landscape that his celebrated intellect habitually kept under strict quarantine. He played the violin with a feeling that was entirely at odds with the austere rationalism he professed in every other department of his existence; he listened to Mendelssohn with an expression that no client or criminal ever provoked; and he had once remarked to me, in a moment of unwonted frankness, that music was the only argument he knew of that might be adduced in favour of the existence of something beyond the merely material universe.</p>
+
+<p>It was therefore not entirely without significance that the case I have chosen to call The Devil's Interval — named for a musical term that will require some brief explanation — engaged his attention not merely as an intellectual puzzle but in a manner that seemed, at certain moments, to press against something more personal. I record this not as interpretive embellishment but as a matter of observable fact, having watched him throughout, and noting in him, at several junctures, a quality of concentration that went beyond the professional.</p>
+
+<p>The case arrived in the spring of 1897 in the person of a tall, pale young man of about thirty who gave his name as Mr. Alistair Drum and his occupation, with some hesitation, as composer. He had, he explained, come to us not entirely of his own volition, but at the insistence of his physician, who had advised him that the matter he wished to discuss was more properly one for a consulting detective than for a doctor, and who had suggested Mr. Holmes by name.</p>
+
+<p class="dialogue">"I am being driven mad," Mr. Drum said, in a tone that combined desperation with precision, as though he had been rehearsing the statement and wished to get it exactly right, "by a piece of music."</p>
+
+<div class="chapter-divider">Chapter II</div>
+
+<p>Mr. Drum was, as Holmes established within the first five minutes of his visit, a man of considerable genuine talent — his name was known to Holmes, who had attended two of his early performances and retained a distinct memory of a piano quartet of some originality — who had in recent years fallen into a professional and personal decline whose origins he attributed, with increasing obsessiveness, to a specific musical encounter three years previously.</p>
+
+<p>He had been, at that time, living in Vienna, pursuing the advanced study of composition that the city's musical institutions made uniquely possible. He had been, by his own account, doing reasonably well — producing work that his teachers regarded with measured approbation, forming the professional connections that would sustain a compositional career, and living a regular, productive life. In the October of that year, he had been invited, through a chain of musical acquaintance, to attend a private recital at the rooms of a wealthy Viennese patron, a Baron Steinwick, in the Third District.</p>
+
+<p>The recital had been given by a single performer — a violinist whose name Drum had been unable subsequently to trace — and had consisted of a single work: a violin sonata of no great length but extraordinary intensity, which had been described on the handwritten programme as <em>Opus Ultimum</em>, without composer attribution.</p>
+
+<p class="dialogue">"I cannot describe the effect it had on me," Drum said, with a helpless candour that I found, as a medical man, genuinely worrying. "I have spent three years attempting to do so and have failed each time. It was as though the music — the specific harmonic content of the music — had reached into some portion of my mind that is not normally accessible to external influence and rearranged something there. When I left the recital, I could not compose. Not a temporary block — composers have those, I know the symptoms. This was a complete and total cessation. As though the music I had heard had made everything I might produce seem not merely inferior but — wrong. Somehow wrong in a way I cannot articulate."</p>
+
+<p class="dialogue">"And this condition has persisted for three years?" Holmes asked.</p>
+
+<p class="dialogue">"It has. And in the last six months it has been accompanied by something else. I begin to hear the sonata — fragments of it, at first, and now more extended passages — in my waking hours. Not as memory, Mr. Holmes. As sound. As if it is being played somewhere just beyond the range of hearing but not quite beyond the range of perception."</p>
+
+<p>Holmes looked at him for a long moment, in a silence I found impossible to read.</p>
+
+<p class="dialogue">"You believe yourself to be losing your mind," he said at last.</p>
+
+<p class="dialogue">"I believe something has been done to me," Drum said quietly. "I do not know if those are different things."</p>
+
+<div class="chapter-divider">Chapter III</div>
+
+<p>Holmes asked Drum to return in two days, having first furnished us with the address of the lodgings he occupied in Bloomsbury and the name of the physician who had referred him. He also asked, almost as an afterthought, whether Drum still possessed the handwritten programme from the Viennese recital. Drum did, and produced it from an inner pocket with the speed of a man who had been carrying it for a long time.</p>
+
+<p>After he left, Holmes sat at the desk with the programme for a full hour without moving, which was, in itself, unusual; he was not normally a man given to extended contemplation of a single object. I sat with my book and did not disturb him.</p>
+
+<p>At last he rose, went to the shelves, and extracted four volumes in quick succession — his monograph on violin technique, a general history of Viennese musical life, a medical text on auditory hallucination that I recognised as one I had lent him some years previously, and — this surprised me — his notes on the Moriarty organisation, which he had kept in a locked drawer since his return from the Continent.</p>
+
+<p class="dialogue">"Holmes," I said carefully. "The Moriarty notes."</p>
+
+<p class="dialogue">"Merely a reference," he said, without looking up from the programme. "Do you know the term <em>diabolus in musica</em>, Watson?"</p>
+
+<p class="dialogue">"I do not."</p>
+
+<p class="dialogue">"It is the name given, historically, to the musical interval of the augmented fourth — the tritone. The interval between, say, C and F sharp. Medieval theorists considered it the most dissonant interval available within the scale, and its use in sacred music was for centuries formally prohibited by the Church on the grounds that it provoked in listeners a response of profound psychological unease. The <em>diabolus in musica</em> — the devil in music. It appears, in very deliberate and very sophisticated ways, throughout the harmonic structure of the sonata Drum heard."</p>
+
+<p class="dialogue">"You can determine that from a programme?"</p>
+
+<p class="dialogue">"I can determine it from the programme and from Drum's description of the effect, cross-referenced against what I know of a very small number of composers who have made systematic study of the tritone's psychological properties. One of whom," he added, setting down the programme with the careful precision of a man placing a piece of evidence in its correct relation to others, "I have encountered before, in a context that had nothing to do with music."</p>
+
+<div class="chapter-divider">Chapter IV</div>
+
+<p>The name Holmes produced, after two days of intensive inquiry that took him, as he later told me, from the British Museum's music library to a small dealer in antiquarian scores in St. Martin's Lane to a correspondingly small office in Chancery Lane where a solicitor named Brisk administered several private estates, was one Professor Emmerich Stoss.</p>
+
+<p>Stoss was, on the face of it, a musicologist — a Viennese academic of no particular celebrity who had published, over a career of thirty years, a series of papers on the psychological and physiological effects of specific harmonic structures. His work was considered interesting in a limited academic circle and entirely disreputable outside it, since his central thesis — that particular combinations of musical interval could produce, in prepared subjects, specific and predictable psychological effects, ranging from mild anxiety to complete creative paralysis — had been received by the mainstream of musical scholarship with the polite contempt reserved for ideas that seem more than usually dangerous.</p>
+
+<p class="dialogue">"His theory is not entirely without scientific foundation," Holmes said, as we sat that evening in Baker Street, he in his armchair with his pipe and I with a glass of whisky that the occasion seemed to demand. "The tritone's psychological effects have been documented, in a modest way, by physiologists. What Stoss has spent thirty years developing is a method of amplifying those effects through deliberate compositional technique — creating works that deploy the tritone in ways calculated to maximise its impact on specific types of psychological constitution. Musical men. Composers, specifically. Men whose inner life is organised around harmonic perception in ways that make them unusually susceptible."</p>
+
+<p class="dialogue">"To what end?" I asked, though I suspected I could guess.</p>
+
+<p class="dialogue">"Stoss has no children," Holmes said. "He is, however, a wealthy man — wealthier than an academic salary accounts for. He has, I have established, in the last fifteen years, made substantial anonymous donations to the careers of six young composers in various European cities, all of whom have subsequently experienced creative collapses of precisely the kind Drum describes. Of those six men, four have subsequently become dependent — emotionally, professionally, in some cases financially — on Stoss's guidance and patronage. They publish under his informal direction. They compose works that embody his theories. They have become, in the fullest sense, extensions of his creative will."</p>
+
+<p class="dialogue">"Good God," I said. "He is collecting them."</p>
+
+<p class="dialogue">"He is creating them," Holmes corrected. "The sonata is not merely a demonstration of his theory. It is the instrument of its application. He identifies a promising young composer, arranges for them to hear the sonata — always under controlled conditions, always once — and then waits. The creative paralysis that follows is genuine; he is not deceiving his subjects about that. But it is not irreversible. He has, I believe, a counter-procedure — a method of restoring the blocked faculty, which he withholds until the subject is sufficiently dependent to accept the conditions attached to the restoration."</p>
+
+<p class="dialogue">"Which are?"</p>
+
+<p class="dialogue">"Gratitude. Deference. The attribution, in however indirect a form, of their subsequent work to his influence. He does not want money or credit. He wants to be the animating intelligence behind a generation of composers who do not know that is what he is."</p>
+
+<div class="chapter-divider">Chapter V</div>
+
+<p>Holmes's connection to Stoss — the connection I had glimpsed in the production of the Moriarty notes — was indirect but genuine. Stoss had been, in the early 1890s, a peripheral figure in the network of European operators that Moriarty had assembled not for criminal purposes, strictly speaking, but for purposes of influence and intelligence. He had never been prosecuted, never charged, never formally connected to any criminal matter; he had been, simply, a man who moved in certain circles and who possessed a particular skill that certain people found useful. Holmes had catalogued him in 1891 and filed him under the heading of matters to return to, which he had not returned to until Drum walked into our sitting room with his programme and his three years of silence.</p>
+
+<p>The resolution of the matter was accomplished, characteristically, not through the police — Stoss had committed nothing that could be readily prosecuted under English law, and in any case he was in Vienna — but through the simple, devastating deployment of knowledge. Holmes wrote to Stoss, enclosing a precise summary of his methods, his history, and the identities of his six previous subjects, together with a clear statement of what would happen to this information if any contact between Stoss and Drum was not immediately and permanently ceased. The letter was, as Holmes read it to me, a model of compressed lethality — the maximum damage achievable with the minimum expenditure of language.</p>
+
+<p>Stoss did not reply. He did not need to. Drum received, six days later, a parcel from Vienna containing a handwritten score — the counter-procedure, Holmes surmised, worked out in notation rather than in performance, suggesting that Stoss retained sufficient caution to be unwilling to risk a personal encounter.</p>
+
+<p>Whether the counter-procedure worked, I can testify directly. I attended, eight months later, a private concert at the Wigmore Hall at which Drum premiered a new piano trio. It was a work of remarkable quality — assured, original, emotionally complex in ways that suggested a man who had been through something and had found, in his art, a way to account for it. Holmes sat beside me in the third row, his long fingers folded in his lap, his eyes closed, and the expression on his face was one I had seen only rarely: the expression of a man in the presence of something he considers genuinely excellent, which is a quite different thing from something he considers merely interesting.</p>
+
+<p>When it was over, Drum came to find us in the small reception that followed. He shook Holmes's hand with both of his own, and for a moment neither man said anything at all, which was, I thought, exactly right.</p>
+
+<p class="dialogue">"How did you know?" Drum said at last. "That it was deliberate? That it wasn't simply — my own failure?"</p>
+
+<p class="dialogue">"Because you told me something that no man who has genuinely lost his talent ever says," Holmes replied. "You told me that everything you might produce seemed not inferior, but wrong. A man whose talent has failed believes his work to be poor. A man whose faculty has been interfered with believes his work to be in some way false — misaligned with a standard he can still perceive but not reach. The gap between perception and production. That is not a natural failure, Mr. Drum. It is an induced one."</p>
+
+<p>Drum nodded slowly. <span class="dialogue">"And the sonata itself? The original? Is it — do you think it is a great work?"</span></p>
+
+<p>Holmes was quiet for a moment.</p>
+
+<p class="dialogue">"It is a very ingenious work," he said carefully. "Whether it is great — that is a question that depends on whether you believe greatness is compatible with the deliberate exploitation of the person who encounters it. Personally, I do not. But then I am not a musician, and perhaps the question is one that only musicians can properly answer."</p>
+
+<p>He glanced at me with a slight lifting of one eyebrow — the expression that meant, in our long private lexicon, that the conversation had reached its natural limit and that we might, with courtesy and without loss, withdraw.</p>
+
+<p>We walked back through the spring evening, along streets that smelled of rain and coal smoke and the particular green freshness that London produces in April, when the plane trees in the squares put out their first leaves and the city remembers, briefly, that it is built on something older than itself. Holmes did not speak for a long while, and I did not press him. Some resolutions are best allowed to settle in silence.</p>
+
+<p class="dialogue">"Watson," he said, at last, as we turned into Baker Street, "do you know what the genuine <em>diabolus in musica</em> is? Not the harmonic interval — the actual devil in music?"</p>
+
+<p class="dialogue">"Tell me."</p>
+
+<p class="dialogue">"The belief that a beautiful thing can be used as a weapon without diminishing its beauty. Stoss made that error. It is, in my experience, a common one." He paused at the door of 221B, his key in his hand, looking up at the evening sky over the rooftops of Marylebone. "And a consistently punished one."</p>
+
+<p>He went inside. I followed. Mrs. Hudson had left cold supper and a note about the morning's letters. The fire was low but not quite out. Holmes settled into his chair and reached, as he so often did at the conclusion of a case, for the violin.</p>
+
+<p>He played nothing I recognised — something slow and searching, with a harmonic complexity I lacked the technical language to describe, though I felt its quality clearly enough. It sounded like the working-out of a problem that had no final answer, only better and better approximations, each one reaching a little further into a silence that retreated as it was approached.</p>
+
+<p>I listened, and thought about music, and the uses to which beauty may be put, and the great distance between what a thing is and what it can be made to do. And outside the Baker Street window, London went on being London — indifferent, inexhaustible, and full, as it always was and would always be, of the full and particular darkness from which so many of our most interesting mornings began.</p>
+
+</article>
+
+<div class="footer-ornament">✦ ✦ ✦</div>
+</body>
+</html>

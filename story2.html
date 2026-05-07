@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Vanishing of Mr. Oleander Glass — A Sherlock Holmes Story</title>
+<link href="https://fonts.googleapis.com/css2?family=IM+Fell+English:ital@0;1&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Cinzel:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #1a1008;
+    --parchment: #f5edd6;
+    --parchment-dark: #e8dcc0;
+    --gold: #b8860b;
+    --gold-light: #d4a017;
+    --crimson: #8b1a1a;
+    --mist: #c8bfa8;
+    --shadow: rgba(0,0,0,0.6);
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background-color: #0d0a05;
+    background-image:
+      radial-gradient(ellipse at 20% 50%, rgba(40,25,5,0.8) 0%, transparent 60%),
+      radial-gradient(ellipse at 80% 20%, rgba(30,15,0,0.6) 0%, transparent 50%);
+    color: var(--parchment);
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 18px;
+    line-height: 1.9;
+    min-height: 100vh;
+  }
+  .back-nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    background: linear-gradient(to bottom, rgba(13,10,5,0.98), rgba(13,10,5,0.0));
+    padding: 1.2rem 3rem;
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+  }
+  .back-btn {
+    font-family: 'Cinzel', serif;
+    font-size: 0.75rem;
+    letter-spacing: 0.15em;
+    color: var(--gold);
+    text-decoration: none;
+    text-transform: uppercase;
+    border: 1px solid rgba(184,134,11,0.4);
+    padding: 0.5rem 1.2rem;
+    transition: all 0.3s;
+  }
+  .back-btn:hover { background: rgba(184,134,11,0.15); border-color: var(--gold); }
+  .story-header {
+    text-align: center;
+    padding: 8rem 2rem 4rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .story-header::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 50%; transform: translateX(-50%);
+    width: 1px; height: 6rem;
+    background: linear-gradient(to bottom, transparent, var(--gold));
+  }
+  .story-number {
+    font-family: 'Cinzel', serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.3em;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+    opacity: 0.8;
+  }
+  .story-title {
+    font-family: 'IM Fell English', serif;
+    font-size: clamp(2.2rem, 5vw, 3.8rem);
+    color: var(--parchment);
+    line-height: 1.2;
+    margin-bottom: 1rem;
+    text-shadow: 0 0 60px rgba(184,134,11,0.2);
+  }
+  .story-subtitle {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 1.1rem;
+    color: var(--mist);
+    margin-bottom: 2rem;
+  }
+  .ornament { color: var(--gold); font-size: 1.4rem; letter-spacing: 0.5rem; }
+  .story-meta {
+    display: flex;
+    justify-content: center;
+    gap: 3rem;
+    margin-top: 2rem;
+    font-family: 'Cinzel', serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    color: var(--mist);
+    text-transform: uppercase;
+    opacity: 0.7;
+  }
+  .story-body {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 2rem 2rem 6rem;
+  }
+  .chapter-divider {
+    text-align: center;
+    margin: 3.5rem 0;
+    color: var(--gold);
+    font-family: 'Cinzel', serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    position: relative;
+  }
+  .chapter-divider::before, .chapter-divider::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    width: 28%;
+    height: 1px;
+    background: linear-gradient(to right, transparent, rgba(184,134,11,0.6));
+  }
+  .chapter-divider::before { right: 55%; }
+  .chapter-divider::after { left: 55%; transform: scaleX(-1); }
+  p { margin-bottom: 1.4rem; color: #d8ccb0; text-align: justify; }
+  p:first-of-type::first-letter {
+    font-family: 'IM Fell English', serif;
+    font-size: 4.5rem;
+    float: left;
+    line-height: 0.75;
+    margin: 0.1em 0.1em 0 0;
+    color: var(--gold);
+    text-shadow: 2px 2px 8px rgba(0,0,0,0.5);
+  }
+  .dialogue { color: #e8dcc0; }
+  .scene-break {
+    text-align: center;
+    margin: 2.5rem 0;
+    color: var(--gold);
+    opacity: 0.5;
+    font-size: 1.2rem;
+    letter-spacing: 0.5rem;
+  }
+  blockquote {
+    border-left: 2px solid var(--gold);
+    margin: 2rem 0 2rem 1rem;
+    padding: 0.5rem 1.5rem;
+    font-style: italic;
+    color: var(--mist);
+    font-size: 1.05rem;
+  }
+  .footer-ornament {
+    text-align: center;
+    padding: 3rem;
+    color: var(--gold);
+    opacity: 0.4;
+    font-size: 1.5rem;
+    letter-spacing: 0.8rem;
+  }
+</style>
+</head>
+<body>
+
+<nav class="back-nav">
+  <a href="index.html" class="back-btn">← Back to Chronicles</a>
+</nav>
+
+<header class="story-header">
+  <div class="story-number">Story the Second</div>
+  <h1 class="story-title">The Vanishing of Mr. Oleander Glass</h1>
+  <div class="story-subtitle">Being an Extraordinary Account of Disappearance, Deception, and the Peculiar Art of the Stage</div>
+  <div class="ornament">✦ ✦ ✦</div>
+  <div class="story-meta">
+    <span>Dr. John H. Watson, M.D.</span>
+    <span>Narrator</span>
+    <span>Baker Street, London</span>
+  </div>
+</header>
+
+<article class="story-body">
+
+<p>There are cases in my long association with Sherlock Holmes that I have been reluctant to set down, not because they lack interest — those are few indeed — but because the truth they reveal strikes at human vanity in so precise and painful a manner that one feels a physician's instinct toward discretion. The affair of Mr. Oleander Glass is such a case. Yet Holmes himself, when I mentioned this reservation some years after the event, looked at me with that particular expression of amused impatience he reserved for what he called my sentimentality.</p>
+
+<p class="dialogue">"The truth, Watson," he said, "is the only thing worth recording. The bruising it inflicts upon the dignity of those involved is, in the long arithmetic of matters, entirely secondary."</p>
+
+<p>Very well. I shall set it down.</p>
+
+<p>The summer of 1893 was a peculiar one for London, and for reasons that extended beyond the weather, which was, in any case, unremarkable. Holmes had returned to Baker Street in the April of that year following the conclusion of what he referred to only as his Continental work — a period of eighteen months during which I had believed him dead, and whose full particulars I am not yet at liberty to disclose. He had resumed his old habits with an energy that I found both reassuring and faintly alarming: the chemistry, the violin at two in the morning, the visitors at all hours, and the tobacco consumed at a rate that would have concerned me professionally had I not known that the activity of his mind effectively regulated everything else.</p>
+
+<p>It was in the last week of June that our visitor came — a small, precise man of sixty, dressed in the unmistakable fashion of theatrical prosperity, which is to say expensively but with a slight excess of care that betrays the self-made man who has not quite finished teaching himself how money behaves. He gave his name as Mr. Septimus Forge, and identified himself as the proprietor of the Royal Alhambra Theatre in the Strand, a music hall of considerable reputation which specialised in what the bills described as "Illusions, Prestidigitations, and Extraordinary Feats of the Human Intellect."</p>
+
+<p class="dialogue">"I have come about Oleander Glass," he said, in a voice that combined theatrical resonance with genuine distress. "My principal artiste. My star. My — the man has simply ceased to exist, Mr. Holmes, and I am quite at a loss."</p>
+
+<p class="dialogue">"Ceased to exist," Holmes repeated, with a precise intonation suggesting that he found the phrase in need of clarification.</p>
+
+<p class="dialogue">"Disappeared," Forge amended. "Vanished. Between the hours of eleven on Tuesday evening, when his performance concluded, and seven on Wednesday morning, when his dresser arrived at his rooms in Garrick Street. The rooms were undisturbed. His belongings were present. His trunk — he always travelled with an extraordinary quantity of luggage, as illusionists invariably do — was unpacked and in order. And Oleander Glass was simply not there."</p>
+
+<div class="chapter-divider">Chapter II</div>
+
+<p>Holmes sat forward with the sudden alertness of a man who has heard, beneath an apparently unremarkable statement, the faint tick of something interesting.</p>
+
+<p class="dialogue">"Tell me about the performance on Tuesday evening," he said.</p>
+
+<p>Forge described it with the proprietary pride of a showman. Oleander Glass — stage name, of course; birth name, as Forge somewhat reluctantly disclosed, was one Harold Binch of Wolverhampton — was, at the height of his powers, the finest stage illusionist in England, and possibly in Europe. His speciality was not the conventional conjuring tricks that filled the bills of lesser theatres — the disappearing handkerchiefs, the impossible card returns — but something he called psychological illusion: the manipulation of an audience's perceptual and rational faculties through the precise management of attention, language, and expectation.</p>
+
+<p class="dialogue">"He doesn't use boxes or mirrors or hidden compartments," Forge said, with evident satisfaction. "At least — not in the ways people expect. His great illusion — the one that closes every show — is what he calls the Empty Room. He walks into a room — an actual room, built on the stage, transparent on two sides, every corner visible to the audience — and then, before their very eyes, he simply is not there. No trapdoor. No false ceiling. The room has been inspected by audience volunteers before the performance. And yet — gone."</p>
+
+<p class="dialogue">"And on Tuesday evening," Holmes said, "the room was inspected as usual?"</p>
+
+<p class="dialogue">"By three volunteers from the audience, yes. A naval officer, a schoolmistress from Islington, and — rather unfortunately, as it now appears — a solicitor named Crale, who has since written to me twice demanding a written explanation."</p>
+
+<p class="dialogue">"The performance concluded normally? Glass emerged — or appeared to emerge — from the room at the end?"</p>
+
+<p class="dialogue">"That is the curious thing," Forge said. "The performance concluded — the audience applauded — but Glass did not take his customary curtain call. His stage manager, a man named Prout, thought he had gone directly to his dressing room, which Glass occasionally did when he was unwell. But the dressing room was empty. And Prout assumed he had departed early for his lodgings. It was only in the morning that we realised—"</p>
+
+<p class="dialogue">"Quite," said Holmes. "Watson, get your coat. We are going to the Alhambra."</p>
+
+<div class="chapter-divider">Chapter III</div>
+
+<p>The Royal Alhambra by daylight had the particular melancholy of all places of entertainment stripped of their evening glamour. We were admitted through the stage door by the stage manager Prout — a compact, practical man of middle years who eyed Holmes with the cautious respect that professionals in any field reserve for acknowledged masters in adjacent ones.</p>
+
+<p>Holmes moved through the backstage geography with the focused attention of a man reading a text in a language he is simultaneously learning and translating. He examined the dressing rooms, the rigging, the wings, and then, with particular care, the stage itself. The Empty Room stood at its centre — a cube of perhaps twelve feet on each side, constructed of pale pine, its front and right-hand walls replaced by panels of thick plate glass through which the audience could observe the interior clearly. Holmes walked around it three times, tapped its walls at intervals with his knuckles, got down on the stage floor to examine its base, and then entered through its narrow door and stood in its centre, turning slowly.</p>
+
+<p class="dialogue">"The stage beneath," he said to Prout. "Is there access?"</p>
+
+<p class="dialogue">"There is a sub-stage, yes. Standard construction. But the inspector who certified the room specifically examined it for any connection between the room's floor and the sub-stage. There is none. The room sits on solid pine boards four inches thick."</p>
+
+<p class="dialogue">"And the inspection volunteers on Tuesday evening — were they of Glass's choosing or the audience's?"</p>
+
+<p>Prout hesitated in a manner that was itself informative.</p>
+
+<p class="dialogue">"They are invited from the audience," he said carefully. "Mr. Glass — he has a particular way of doing it. He asks for volunteers and then selects among them. He always says he selects the most sceptical-looking."</p>
+
+<p class="dialogue">"Of course he does," said Holmes pleasantly. "And the naval officer who volunteered on Tuesday — did Glass know him?"</p>
+
+<p>Another hesitation. Longer, this time.</p>
+
+<p class="dialogue">"I couldn't say," Prout said.</p>
+
+<p class="dialogue">"Then I shall," said Holmes. "The naval officer was one Commander Ashby Vane, who has for the past three months been a regular attendee at Glass's Tuesday performances, always sitting in the third row, always volunteering for this specific portion of the act, and always being selected. I know this because I attended one of Glass's performances in April — professionally, not recreationally, though I confess the man is genuinely skilled — and I noted Vane at that occasion. The coincidence is, I think, not accidental."</p>
+
+<div class="chapter-divider">Chapter IV</div>
+
+<p>The solution to the mystery of Oleander Glass's disappearance was, like many of the more elegant solutions Holmes arrived at, one that explained several apparently unrelated facts with a single illuminating principle — and that, in the process of explaining, transformed the nature of the mystery itself.</p>
+
+<p>Holmes had, in the course of his Continental exile, spent time in Vienna, where he had, as he put it, "made a thorough study of the methods of the Continent's most accomplished theatrical conjurers." This study had given him an insight he now applied to the Empty Room.</p>
+
+<p class="dialogue">"The inspection is the trick," he said, as we sat in Forge's cluttered office above the theatre that afternoon. "Not the disappearance. Any moderately competent engineer could construct a dozen mechanisms by which a man might vanish from an apparently transparent room. The brilliant flourish of Glass's method is that he uses the inspection itself — the very process designed to rule out trickery — as the central mechanism of the deception."</p>
+
+<p>He explained. The naval officer, Vane, was not a naval officer but an actor — one Thomas Vane, formerly of the Lyceum, who had spent three months establishing his presence as a regular theatregoer before stepping forward as an apparently random volunteer. His role during the inspection was not to verify that the room was genuine, but to perform the appearance of verification while subtly mismanaging the examination in ways that a genuine sceptic would not. Specifically: the pine boards of the room's floor were, in their lower two inches, hollow — not connected to the sub-stage by any conventional trapdoor, but inset with a horizontal channel, one foot wide and two feet long, invisible to any examination that proceeded from above. A man of Glass's slight physique, compressed flat, could occupy this channel for the duration of the audience's examination of the room without being detected, provided the examination was managed by someone who knew where not to look.</p>
+
+<p class="dialogue">"Glass entered the channel before the inspection began," Holmes said. "The room appeared empty because it was empty — above the floor. Vane and the two genuine volunteers inspected it and found nothing, because there was nothing to find above the floor. Glass then emerged during the performance — the final blackout before the reveal lasts four seconds, which is sufficient — and the empty room was attributed to illusion rather than to a mechanism no one thought to examine because no one knew it existed."</p>
+
+<p>Forge stared at him. <span class="dialogue">"But then — where is Glass? If he can do all this, why did he not emerge?"</span></p>
+
+<p class="dialogue">"Because on Tuesday evening," Holmes said, "Mr. Glass had a very particular reason for wishing to disappear that had nothing whatever to do with the performance. And everything to do with the man waiting for him at the stage door."</p>
+
+<div class="chapter-divider">Chapter V</div>
+
+<p>The man at the stage door — identified by Holmes through a combination of the stage doorman's description, a stub of a ticket found in Glass's dressing room, and a visit to Scotland Yard's records that afternoon — was one DCI Basil Remnant, of the Metropolitan Police, who had for the past four months been quietly and persistently investigating Mr. Harold Binch, of Wolverhampton, in connection with a matter of considerable financial delicacy.</p>
+
+<p>Glass — Binch — had, it transpired, not always been a conjuror. In his earlier professional life, he had been a salesman of mining shares in several ventures that had proved, upon examination, to be less substantial than their prospectuses suggested. No criminal charges had been filed, precisely because the evidence was circumstantial and because Binch had disappeared from the Midlands with sufficient speed to forestall a proper investigation. He had reinvented himself in London as a theatrical artiste, a transformation so complete that several years had passed before a persistent former investor, now a man of property in Wolverhampton, had hired a private inquiry agent who had, eventually, identified the connection.</p>
+
+<p class="dialogue">"He knew Remnant was at the stage door," Holmes said. "His dresser — who is considerably more involved in this than he has admitted — saw Remnant arrive and sent word backstage. Glass, already concealed in the mechanism of his own trick, simply remained concealed. He let the performance conclude without him, emerged after the theatre had emptied, and departed by an exit Prout does not appear to know about — a ground-level window in the sub-stage that opens onto the alley behind the building."</p>
+
+<p class="dialogue">"And where is he now?" Forge demanded.</p>
+
+<p class="dialogue">"Almost certainly en route to the Continent," Holmes said, with a slight smile. "He has done this before, after all. He is very practised at vanishing."</p>
+
+<p>There was a silence in the office. Forge's face ran through a sequence of expressions — astonishment, comprehension, and then a rueful, almost admiring acceptance.</p>
+
+<p class="dialogue">"He was the best illusionist I ever saw," Forge said finally.</p>
+
+<p class="dialogue">"He undoubtedly was," Holmes agreed. "The finest trick he ever performed, however, was convincing audiences that he was honestly deceiving them, when in fact he was deceiving them about the nature of the deception. There is a distinction, and it is not a small one."</p>
+
+<div class="chapter-divider">Chapter VI</div>
+
+<p>Holmes communicated his findings to DCI Remnant, who dispatched inquiries to the Channel ports and thence to the Continental authorities. Oleander Glass — Harold Binch — was apprehended in Antwerp six weeks later, attempting to establish himself as a theatrical artiste under the name Professor Alabaster, and was returned to England to face the outstanding civil complaints, which resulted, ultimately, in a restitution order rather than criminal prosecution.</p>
+
+<p>The actor Vane received a caution. The dresser, a man named Quilp, received rather more — he had been Glass's confederate for seven years and had participated in the management of at least two other occasions on which Glass had escaped complications by exploiting the mechanism of his own performance.</p>
+
+<p>I dined with Holmes that evening in Baker Street, in the pleasant languor that follows the satisfactory conclusion of a complex matter, and I asked him the question that had been forming in my mind since the afternoon.</p>
+
+<p class="dialogue">"You said you had attended Glass's performance in April. Professionally. What did you mean?"</p>
+
+<p>Holmes poured himself a glass of claret and examined it against the lamplight before answering.</p>
+
+<p class="dialogue">"I was asked, in April, by a gentleman who had invested a considerable sum in a mining venture, to investigate a man he believed to be connected to a previous fraud. The man in question was registered at his lodgings as a Mr. Harold Binch. I attended the Alhambra, identified Binch as Glass, and concluded that the connection was probable but that the evidence was as yet insufficient for any action. I conveyed this assessment to my client and continued to monitor the situation."</p>
+
+<p class="dialogue">"You knew?" I said. "When Forge came to us — you already knew who Glass was?"</p>
+
+<p class="dialogue">"I knew who Glass had been," Holmes said. "The case presented by Forge clarified what Glass had now become — specifically, a man who had used his own professional methods to enact his own personal disappearance. Which is, I think, the most complete expression of his art that he ever managed. One cannot help admiring the symmetry."</p>
+
+<p>He refilled his glass.</p>
+
+<p class="dialogue">"The fundamental principle of all illusion," he said thoughtfully, "is that the audience participates willingly in their own deception. They want to be mystified. They suspend disbelief as a form of pleasure. Glass understood this not only as a theatrical device but as a philosophy of human interaction. He applied it to his investors, his audiences, his colleagues, and ultimately — fittingly — to the police inspector who came to arrest him. The tragedy is not that he was dishonest. The tragedy is that he was brilliant, and chose to employ his brilliance entirely in the service of concealment."</p>
+
+<p class="dialogue">"You sound almost sorry for him," I said.</p>
+
+<p class="dialogue">"I am almost sorry for any man who could have been exceptional and chose instead to be merely elusive," Holmes said. "But only almost. The investors he defrauded in Wolverhampton were not, after all, abstractions. They were people with savings and plans and the reasonable expectation that the world was not designed specifically to deceive them. That expectation, modest as it is, deserves more respect than Glass was willing to give it."</p>
+
+<p>He set down his glass and reached for the violin, which signalled that the conversation was concluded. Outside, the summer evening was still light at nine o'clock, and the sounds of the city rose through the open window in that particular chord of commerce and life that I have always found, in its way, a kind of music.</p>
+
+<p>Holmes played — something unrecognisable, something of his own composition, I thought — and I sat back and listened, and thought about brilliant men who choose to waste themselves, and about the peculiar satisfaction of watching a very good mind turn its attention to the question of where they have gone.</p>
+
+</article>
+
+<div class="footer-ornament">✦ ✦ ✦</div>
+</body>
+</html>

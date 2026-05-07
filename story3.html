@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Affair of the Midnight Cartographer — A Sherlock Holmes Story</title>
+<link href="https://fonts.googleapis.com/css2?family=IM+Fell+English:ital@0;1&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Cinzel:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #1a1008;
+    --parchment: #f5edd6;
+    --parchment-dark: #e8dcc0;
+    --gold: #b8860b;
+    --gold-light: #d4a017;
+    --crimson: #8b1a1a;
+    --mist: #c8bfa8;
+    --shadow: rgba(0,0,0,0.6);
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background-color: #0d0a05;
+    background-image:
+      radial-gradient(ellipse at 20% 50%, rgba(40,25,5,0.8) 0%, transparent 60%),
+      radial-gradient(ellipse at 80% 20%, rgba(30,15,0,0.6) 0%, transparent 50%);
+    color: var(--parchment);
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 18px;
+    line-height: 1.9;
+    min-height: 100vh;
+  }
+  .back-nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    background: linear-gradient(to bottom, rgba(13,10,5,0.98), rgba(13,10,5,0.0));
+    padding: 1.2rem 3rem;
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+  }
+  .back-btn {
+    font-family: 'Cinzel', serif;
+    font-size: 0.75rem;
+    letter-spacing: 0.15em;
+    color: var(--gold);
+    text-decoration: none;
+    text-transform: uppercase;
+    border: 1px solid rgba(184,134,11,0.4);
+    padding: 0.5rem 1.2rem;
+    transition: all 0.3s;
+  }
+  .back-btn:hover { background: rgba(184,134,11,0.15); border-color: var(--gold); }
+  .story-header {
+    text-align: center;
+    padding: 8rem 2rem 4rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .story-header::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 50%; transform: translateX(-50%);
+    width: 1px; height: 6rem;
+    background: linear-gradient(to bottom, transparent, var(--gold));
+  }
+  .story-number {
+    font-family: 'Cinzel', serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.3em;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+    opacity: 0.8;
+  }
+  .story-title {
+    font-family: 'IM Fell English', serif;
+    font-size: clamp(2.2rem, 5vw, 3.8rem);
+    color: var(--parchment);
+    line-height: 1.2;
+    margin-bottom: 1rem;
+    text-shadow: 0 0 60px rgba(184,134,11,0.2);
+  }
+  .story-subtitle {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 1.1rem;
+    color: var(--mist);
+    margin-bottom: 2rem;
+  }
+  .ornament { color: var(--gold); font-size: 1.4rem; letter-spacing: 0.5rem; }
+  .story-meta {
+    display: flex;
+    justify-content: center;
+    gap: 3rem;
+    margin-top: 2rem;
+    font-family: 'Cinzel', serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    color: var(--mist);
+    text-transform: uppercase;
+    opacity: 0.7;
+  }
+  .story-body {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 2rem 2rem 6rem;
+  }
+  .chapter-divider {
+    text-align: center;
+    margin: 3.5rem 0;
+    color: var(--gold);
+    font-family: 'Cinzel', serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    position: relative;
+  }
+  .chapter-divider::before, .chapter-divider::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    width: 28%;
+    height: 1px;
+    background: linear-gradient(to right, transparent, rgba(184,134,11,0.6));
+  }
+  .chapter-divider::before { right: 55%; }
+  .chapter-divider::after { left: 55%; transform: scaleX(-1); }
+  p { margin-bottom: 1.4rem; color: #d8ccb0; text-align: justify; }
+  p:first-of-type::first-letter {
+    font-family: 'IM Fell English', serif;
+    font-size: 4.5rem;
+    float: left;
+    line-height: 0.75;
+    margin: 0.1em 0.1em 0 0;
+    color: var(--gold);
+    text-shadow: 2px 2px 8px rgba(0,0,0,0.5);
+  }
+  .dialogue { color: #e8dcc0; }
+  .scene-break {
+    text-align: center;
+    margin: 2.5rem 0;
+    color: var(--gold);
+    opacity: 0.5;
+    font-size: 1.2rem;
+    letter-spacing: 0.5rem;
+  }
+  blockquote {
+    border-left: 2px solid var(--gold);
+    margin: 2rem 0 2rem 1rem;
+    padding: 0.5rem 1.5rem;
+    font-style: italic;
+    color: var(--mist);
+    font-size: 1.05rem;
+  }
+  .footer-ornament {
+    text-align: center;
+    padding: 3rem;
+    color: var(--gold);
+    opacity: 0.4;
+    font-size: 1.5rem;
+    letter-spacing: 0.8rem;
+  }
+</style>
+</head>
+<body>
+
+<nav class="back-nav">
+  <a href="index.html" class="back-btn">← Back to Chronicles</a>
+</nav>
+
+<header class="story-header">
+  <div class="story-number">Story the Third</div>
+  <h1 class="story-title">The Affair of the Midnight Cartographer</h1>
+  <div class="story-subtitle">In Which a Map Leads Nowhere, and the Truth Leads Somewhere Unexpected</div>
+  <div class="ornament">✦ ✦ ✦</div>
+  <div class="story-meta">
+    <span>Dr. John H. Watson, M.D.</span>
+    <span>Narrator</span>
+    <span>Baker Street, London</span>
+  </div>
+</header>
+
+<article class="story-body">
+
+<p>Of all the qualities that distinguished Sherlock Holmes from other remarkable men of my acquaintance, the one I found most consistently arresting was not his deductive faculty, extraordinary as that was, but his relationship with what I can only describe as the texture of things. He perceived the world at a resolution that seemed, at times, almost painfully fine — a resolution that rendered invisible to him the broad strokes by which most of us navigate experience, while making luminously clear the minute particulars that we neither see nor think to seek. It was this quality that led him, one evening in the autumn of 1896, to notice something in a map that three experienced cartographers and one retired surveyor had examined without remark.</p>
+
+<p>The case had begun — as so many of our cases began — with a visitor who seemed, in the first instance, to present a problem of very ordinary dimensions, and who had, in the second, concealed within that ordinary presentation a puzzle of considerable intricacy. The visitor on this occasion was a young woman of perhaps twenty-eight, who gave her name as Miss Rowena Sable and her occupation as assistant to the Librarian of the Meridian Society, a learned institution in Bloomsbury concerned with the history and practice of geographical surveying.</p>
+
+<p class="dialogue">"A map has been stolen from our collection," she said, with the direct, unsentimental delivery of a woman who has decided that clarity is more useful than affect. "Not the most valuable map in the collection — not by several orders of magnitude. And not any map for which there is an obvious commercial market. Which is why our Director, Sir Lawrence Pell, has been reluctant to involve the police. He believes — and I believe he is wrong, which is why I have come to you independently — that the matter will resolve itself."</p>
+
+<p class="dialogue">"And you believe otherwise," Holmes said.</p>
+
+<p class="dialogue">"I believe the map that was taken is the only one in our collection that cannot be replaced, and that its theft is connected to a second event that Sir Lawrence has been very careful not to mention to anyone — including, I rather think, the police, even had he been willing to consult them."</p>
+
+<p class="dialogue">"Which event?" Holmes asked.</p>
+
+<p class="dialogue">"Three weeks before the map was taken," Miss Sable said, "the map's compiler — an elderly cartographer named Mr. Absalom Finch — was found dead in his rooms in Holborn. The inquest returned a verdict of natural causes. He was seventy-three and his health had been declining. But Mr. Finch had visited the Society two days before his death to examine the map — specifically to examine it, having requested access to the secured collection for the first time in eleven years — and he had left a note with the duty librarian asking that it be shown to no one in his absence. The note was filed and forgotten. The map was stolen four days after his death."</p>
+
+<div class="chapter-divider">Chapter II</div>
+
+<p>Holmes was, for the remainder of Miss Sable's visit, in one of those states of focused receptivity that I recognised as his highest mode of attention — a quality of stillness that resembled tranquility but was in fact its precise opposite, being a concentration so complete that it absorbed everything in the room and gave back nothing. He asked Miss Sable to describe the stolen map in as much detail as she could furnish, and she did so with the professional precision of a trained librarian.</p>
+
+<p>The map was of an area of the Kentish coast between Folkestone and Hythe, surveyed and drawn by Absalom Finch himself in the decade between 1851 and 1861. It was not a significant map in the cartographic sense — the coastline it depicted had been charted many times by the Ordnance Survey and others, and Finch's version offered no particular advances in accuracy or technique over those official versions. What made it unusual was a series of annotations in the margins, written in Finch's cramped, idiosyncratic hand, that described geographical features — inland depressions, old field boundaries, sites of what Finch called "subsurface anomalies" — which did not correspond to anything in the standard surveys or the local topographical literature.</p>
+
+<p class="dialogue">"Had anyone attempted to interpret the annotations?" Holmes asked.</p>
+
+<p class="dialogue">"Three people, at various times over the years. A geologist from University College in 1874, a local historian from Folkestone in 1889, and a young man from the Board of Works in 1892 who thought the anomalies might be connected to a drainage problem he was investigating. None of them found the annotations useful."</p>
+
+<p class="dialogue">"But Mr. Finch himself found them sufficiently important to request exclusive access to the map two days before his death," Holmes observed. "And someone else found them sufficiently important to steal the map immediately after his death. What do you know of Mr. Finch's personal circumstances in his last years?"</p>
+
+<p>Miss Sable hesitated, and in that hesitation Holmes read something that made him sit fractionally more upright.</p>
+
+<p class="dialogue">"He was, I believe, in some financial difficulty," she said carefully. "He had not had a commission of any significance in eight or nine years. He lived very quietly in Holborn. I know that he had been attempting, in the last two years of his life, to interest various parties — private parties, I mean, not institutions — in something he referred to only as his Kentish work. I know this because he mentioned it to me, once, in passing. He seemed — hopeful is perhaps too strong a word. Expectant."</p>
+
+<p class="dialogue">"And did any of these private parties take an interest?"</p>
+
+<p class="dialogue">"I cannot say. But three months before his death, Mr. Finch purchased a new winter coat and paid off a debt of some years' standing with our Society's lending library. Which is to say, he had come, from somewhere, into money."</p>
+
+<div class="chapter-divider">Chapter III</div>
+
+<p>We visited the Meridian Society the following morning. Sir Lawrence Pell received us with the frosty courtesy of a man who resents the arrival of outside intelligence but is too well-bred to show it. He was a large, composed man of sixty, with the air of institutional authority that accumulates in those who have administered learned societies for many years — a kind of benign immovability, like a very comfortable piece of furniture.</p>
+
+<p>He confirmed, without adding to, Miss Sable's account of the theft. The map had been stored in the secured collection on the first floor, in a case that required two keys — one held by the Director, one by the head librarian, a Mr. Crane, who was currently unwell and absent. The case had not been forced; the lock had been operated with one or both keys. Sir Lawrence's key had remained, throughout the relevant period, in his possession. Mr. Crane's key was at his home in Bermondsey.</p>
+
+<p class="dialogue">"Has Mr. Crane's key been examined?" Holmes asked.</p>
+
+<p class="dialogue">"I see no reason—"</p>
+
+<p class="dialogue">"Has it been examined?"</p>
+
+<p>A pause. <span class="dialogue">"No."</span></p>
+
+<p class="dialogue">"I should like to examine it. And I should like, if you will permit, to examine the case and the room."</p>
+
+<p>Holmes spent forty minutes in the secured collection room. I spent most of it watching him and understanding very little of what he found, though the intensity of his attention left no doubt that he was finding a great deal. He examined the lock of the case with his lens, measured the dimensions of the case's interior with a small folding rule he produced from his pocket, and spent a particularly long time studying the shelving that surrounded the case on three sides.</p>
+
+<p>When he emerged, he said nothing to me or to Sir Lawrence, but asked one question of Miss Sable, who had accompanied us throughout: <span class="dialogue">"The map was mounted on board, was it not? The annotations were applied not to the paper of the map itself, but to the mounting board."</span></p>
+
+<p class="dialogue">"Yes," she said, clearly surprised. "That is unusual, and I should have mentioned it. Mr. Finch applied the annotations to the board after mounting. They are in a different ink from the map itself and clearly post-date it."</p>
+
+<p class="dialogue">"How much of the board was visible — that is, the unmapped board, the margins?"</p>
+
+<p class="dialogue">"Perhaps four inches on each side. The annotations fill most of those margins."</p>
+
+<p class="dialogue">"Then I think," Holmes said, with the quiet satisfaction of a man who has identified the final piece of an arrangement, "that what was stolen was not the map, but the board. And what is written on the board is not a series of geographical annotations but a set of instructions for locating something that Absalom Finch found in the Kentish coast fifty years ago, encoded in the guise of cartographic notation, and that someone else — someone who paid Finch for the information but did not wish to wait for it to be transferred to them by more direct means — decided, upon Finch's death, to obtain by theft rather than by further transaction."</p>
+
+<div class="chapter-divider">Chapter IV</div>
+
+<p>The name of the man who had paid Finch was not, in the end, difficult to discover. Holmes had, by the time we returned to Baker Street, formed a hypothesis, which he confirmed that afternoon through three separate inquiries: one to his network of informants in the East End's marine salvage trade, one to Lloyd's Register, and one to a retired customs official named Pargeter, whom Holmes visited in person in his rooms in Lambeth.</p>
+
+<p>The man's name was Cornelius Wrath — a shipping merchant of the second tier, not spectacularly wealthy but substantial, whose business interests included several salvage contracts along the south-east coast of England. He had engaged Finch, it appeared, two years previously, having been directed to the old cartographer by an antiques dealer who had purchased, at an estate sale, a collection of Finch's private papers from his early survey work. Among those papers had been a journal entry of 1857 in which Finch described, in the oblique and cautious language of a man who did not wish his discovery to be commonly known, the location of what he believed to be the wreck of a Dutch East Indiaman of the early eighteenth century, lying in approximately six fathoms of water beneath a false coastal shelf he had identified through his survey work.</p>
+
+<p class="dialogue">"A Dutch Indiaman of that period," Holmes said, when he returned from Lambeth and laid out the full account for my benefit, "would have been carrying, depending upon her route and cargo, anything from spice and silk to silver coinage and plate. Wrath is not a man who leaves his interests unprotected. He paid Finch for access to the precise location — the annotations on the board constitute, I believe, a set of bearings coded as if they were geological observations — and then waited while he organised the equipment and permissions for a salvage operation. When Finch died, Wrath decided that he need not continue to honour the financial arrangement they had made, since Finch was no longer in a position to expose him, and that it was simpler — and cheaper — to take the board directly."</p>
+
+<p class="dialogue">"Is that murder?" I asked.</p>
+
+<p class="dialogue">"Not by any standard I could prove in court," Holmes said. "Finch was genuinely old and genuinely unwell. I have no evidence that Wrath accelerated his death, though I confess the timing is not without its suggestive quality. What I can demonstrate is the theft, the prior financial arrangement, and the fraudulent purpose behind the salvage operation — which would require licensing under the Crown's rights of wreck, licensing that Wrath has conspicuously not applied for, which means that he intends to conduct the operation without official knowledge, which is itself a criminal matter of some weight."</p>
+
+<div class="chapter-divider">Chapter V</div>
+
+<p>The matter was, in the end, resolved through channels that satisfied justice without providing the dramatic denouement that readers of sensation fiction might have wished for. Holmes conveyed his findings to Inspector Lestrade, who was at that period enjoying one of his periodic runs of good official fortune and was therefore unusually receptive to intelligence that promised an arrest. Wrath was interviewed, the stolen board recovered from a safe in his Fenchurch Street office, and the unlicensed salvage operation — which had been scheduled to begin the following month — was quietly cancelled.</p>
+
+<p>Wrath was charged with the theft, which he eventually admitted in terms designed to minimise its significance. He was fined, rather than imprisoned, and the board was returned to the Meridian Society. Sir Lawrence Pell made a brief statement to the effect that the Society was gratified by the outcome and left it at that.</p>
+
+<p>Miss Rowena Sable, who had precipitated the entire investigation by the simple act of seeking outside assistance for a problem her superior had preferred to leave undisturbed, received no official acknowledgement of her role. Holmes, when I mentioned this to him, shrugged in the manner of a man who has long since made his peace with institutional ingratitude.</p>
+
+<p class="dialogue">"She did not come to us for recognition," he said. "She came because she understood that a dead old man's life work deserved to be treated with more respect than convenient ignorance affords it."</p>
+
+<p class="dialogue">"And the wreck itself?" I asked. "Is it real?"</p>
+
+<p class="dialogue">"Almost certainly. The bearings on the board are, when decoded, entirely consistent with a genuine location. There is a false shelf along that section of coast that has been noted by the Ordnance Survey, though not explained. And there are Dutch East India Company records in Amsterdam — I checked, through a correspondent — that show a vessel, the <em>Naarden</em>, lost in the winter of 1712 on the English coast, cargo unspecified, crew seven, no survivors recovered."</p>
+
+<p class="dialogue">"Has anyone applied for the salvage license?"</p>
+
+<p>Holmes's expression carried, for a moment, a quality that I had learned to read as the closest he came to sentiment about his own affairs.</p>
+
+<p class="dialogue">"Miss Sable has," he said. "She applied, on behalf of the Meridian Society, three days after the board was returned. She is, by all accounts, a very efficient librarian."</p>
+
+<p>I thought about Absalom Finch — the old cartographer in his Holborn rooms, spending forty years keeping a secret that excited him more than it rewarded him, and dying, in the end, with the secret imperfectly sold and the treasure still in its sea-bed darkness. I thought about the annotation made in a different ink to the map itself — the afterthought, or perhaps the essential thought, added after the fact on a margin that most people would have taken for empty space.</p>
+
+<p class="dialogue">"He could have simply written it down," I said. "The location. He could have published it."</p>
+
+<p class="dialogue">"He could have," Holmes agreed. "But then it would have been a geographical discovery, and anyone might have gone there. By encoding it, he ensured that only someone who understood his method — someone who thought as he thought — would be able to read it. He was not hiding it from the world, Watson. He was preserving it for the right person."</p>
+
+<p>He picked up his violin and touched a string without drawing the bow, listening to the sound decay into the Baker Street evening.</p>
+
+<p class="dialogue">"Whether Miss Sable is the right person," he said, "time will tell. But she is, at minimum, a person who looks at maps with sufficient attention to notice what is not there as clearly as what is. That, in my experience, is a more uncommon qualification than it sounds."</p>
+
+</article>
+
+<div class="footer-ornament">✦ ✦ ✦</div>
+</body>
+</html>

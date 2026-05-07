@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Cipher of Blackthorn Moor — A Sherlock Holmes Story</title>
+<link href="https://fonts.googleapis.com/css2?family=IM+Fell+English:ital@0;1&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Cinzel:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #1a1008;
+    --parchment: #f5edd6;
+    --parchment-dark: #e8dcc0;
+    --gold: #b8860b;
+    --gold-light: #d4a017;
+    --crimson: #8b1a1a;
+    --mist: #c8bfa8;
+    --shadow: rgba(0,0,0,0.6);
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background-color: #0d0a05;
+    background-image:
+      radial-gradient(ellipse at 20% 50%, rgba(40,25,5,0.8) 0%, transparent 60%),
+      radial-gradient(ellipse at 80% 20%, rgba(30,15,0,0.6) 0%, transparent 50%),
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='4'%3E%3Crect width='4' height='4' fill='%230d0a05'/%3E%3Crect x='0' y='0' width='1' height='1' fill='%23181005' opacity='0.5'/%3E%3C/svg%3E");
+    color: var(--parchment);
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 18px;
+    line-height: 1.9;
+    min-height: 100vh;
+  }
+  .back-nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    background: linear-gradient(to bottom, rgba(13,10,5,0.98), rgba(13,10,5,0.0));
+    padding: 1.2rem 3rem;
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+  }
+  .back-btn {
+    font-family: 'Cinzel', serif;
+    font-size: 0.75rem;
+    letter-spacing: 0.15em;
+    color: var(--gold);
+    text-decoration: none;
+    text-transform: uppercase;
+    border: 1px solid rgba(184,134,11,0.4);
+    padding: 0.5rem 1.2rem;
+    transition: all 0.3s;
+  }
+  .back-btn:hover { background: rgba(184,134,11,0.15); border-color: var(--gold); }
+  .story-header {
+    text-align: center;
+    padding: 8rem 2rem 4rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .story-header::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 50%; transform: translateX(-50%);
+    width: 1px; height: 6rem;
+    background: linear-gradient(to bottom, transparent, var(--gold));
+  }
+  .story-number {
+    font-family: 'Cinzel', serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.3em;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+    opacity: 0.8;
+  }
+  .story-title {
+    font-family: 'IM Fell English', serif;
+    font-size: clamp(2.2rem, 5vw, 3.8rem);
+    color: var(--parchment);
+    line-height: 1.2;
+    margin-bottom: 1rem;
+    text-shadow: 0 0 60px rgba(184,134,11,0.2);
+  }
+  .story-subtitle {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 1.1rem;
+    color: var(--mist);
+    margin-bottom: 2rem;
+  }
+  .ornament { color: var(--gold); font-size: 1.4rem; letter-spacing: 0.5rem; }
+  .story-meta {
+    display: flex;
+    justify-content: center;
+    gap: 3rem;
+    margin-top: 2rem;
+    font-family: 'Cinzel', serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    color: var(--mist);
+    text-transform: uppercase;
+    opacity: 0.7;
+  }
+  .story-body {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 2rem 2rem 6rem;
+  }
+  .chapter-divider {
+    text-align: center;
+    margin: 3.5rem 0;
+    color: var(--gold);
+    font-family: 'Cinzel', serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    position: relative;
+  }
+  .chapter-divider::before, .chapter-divider::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    width: 28%;
+    height: 1px;
+    background: linear-gradient(to right, transparent, rgba(184,134,11,0.6));
+  }
+  .chapter-divider::before { right: 55%; }
+  .chapter-divider::after { left: 55%; transform: scaleX(-1); }
+  p { margin-bottom: 1.4rem; color: #d8ccb0; text-align: justify; }
+  p:first-of-type::first-letter {
+    font-family: 'IM Fell English', serif;
+    font-size: 4.5rem;
+    float: left;
+    line-height: 0.75;
+    margin: 0.1em 0.1em 0 0;
+    color: var(--gold);
+    text-shadow: 2px 2px 8px rgba(0,0,0,0.5);
+  }
+  .dialogue { color: #e8dcc0; }
+  .scene-break {
+    text-align: center;
+    margin: 2.5rem 0;
+    color: var(--gold);
+    opacity: 0.5;
+    font-size: 1.2rem;
+    letter-spacing: 0.5rem;
+  }
+  blockquote {
+    border-left: 2px solid var(--gold);
+    margin: 2rem 0 2rem 1rem;
+    padding: 0.5rem 1.5rem;
+    font-style: italic;
+    color: var(--mist);
+    font-size: 1.05rem;
+  }
+  .footer-ornament {
+    text-align: center;
+    padding: 3rem;
+    color: var(--gold);
+    opacity: 0.4;
+    font-size: 1.5rem;
+    letter-spacing: 0.8rem;
+  }
+  @media (max-width: 600px) {
+    .story-body { padding: 1rem 1.2rem 4rem; }
+    .back-nav { padding: 1rem 1.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="back-nav">
+  <a href="index.html" class="back-btn">← Back to Chronicles</a>
+</nav>
+
+<header class="story-header">
+  <div class="story-number">Story the First</div>
+  <h1 class="story-title">The Cipher of Blackthorn Moor</h1>
+  <div class="story-subtitle">Being an Account of a Singular Investigation into Matters of Ancient Wickedness</div>
+  <div class="ornament">✦ ✦ ✦</div>
+  <div class="story-meta">
+    <span>Dr. John H. Watson, M.D.</span>
+    <span>Narrator</span>
+    <span>Baker Street, London</span>
+  </div>
+</header>
+
+<article class="story-body">
+
+<p>It was during the bitter February of 1895 that my friend Mr. Sherlock Holmes first turned his remarkable faculties upon the peculiar affair which I have long debated whether to commit to paper, fearing that certain details might cause distress to a family still resident in the northern counties. Time, however, has softened the necessity for concealment, and I now set down the facts as faithfully as memory and my notes allow, trusting that the reader will judge the matter with the dispassion it deserves.</p>
+
+<p>Holmes had been, for some three weeks prior to the arrival of our visitor, in one of those states of profound inertia that were, paradoxically, the hallmark of a mind operating at extraordinary speed. He lay upon the sofa in our Baker Street rooms with the curtains half-drawn, a cold pipe clenched between his teeth, and his grey eyes fixed upon the ceiling as though the plaster concealed some architectural wonder visible only to himself. He had refused all food since Tuesday, had twice declined invitations from Mycroft, and had filled seventeen pages of a morocco-covered notebook with what appeared, at first glance, to be random figures and symbols, but which I later understood to be the foundations of his monograph on the cryptographic systems employed by the Hanseatic trading guilds of the fifteenth century.</p>
+
+<p>I was reading the morning post when Mrs. Hudson announced our visitor — a woman of perhaps fifty years, dressed in the sombre fashion of the prosperous provincial classes, with a face that had once been handsome and still retained a certain dignity, though it was presently shadowed by what I recognised, from long professional experience, as genuine and recent fear.</p>
+
+<p class="dialogue">"Pray come in, Mrs. Alderton," said Holmes from the sofa, without troubling to sit upright or open his eyes fully. "Watson, be so good as to offer our visitor the basket chair. You will find that it is positioned, as it happens, at precisely the correct angle to the fire."</p>
+
+<p>The woman started at the use of her name, which Holmes had not yet been given. She looked at me with an expression mingling astonishment with renewed apprehension.</p>
+
+<p class="dialogue">"You must not be alarmed," I said, guiding her gently to the indicated chair. "Mr. Holmes has merely observed what any attentive person might, though considerably faster."</p>
+
+<p class="dialogue">"The mourning ribbon on your sleeve is seven months old — note the slight fading at the fold," Holmes said, sitting up at last with a sudden, serpentine energy. "It is of Yorkshire manufacture, specifically the Havisham mill at Skipton — I recognise the particular weave. Your boots carry a grey clay distinctive to the limestone country around Harrogate, yet your train ticket stub, which protrudes from your left glove, is stamped at King's Cross, suggesting you arrived in London this morning from the north. The letter in your reticule bears a wax seal I can distinguish at this distance as the device of the Alderton family of Thornwick Hall — a moor-bird quartered against a chevron. I deduced the surname before you entered the room, Mrs. Alderton, from the correspondence your solicitor, Mr. Featherstone of Gray's Inn, was good enough to send me yesterday, though without sufficient detail to explain your current state of distress. Sit down. Tell me everything, and pray omit nothing, however trifling it may appear."</p>
+
+<div class="chapter-divider">Chapter II</div>
+
+<p>Mrs. Alderton composed herself with admirable swiftness. She was, I perceived, a woman accustomed to managing large concerns — the kind of calm, practical intelligence that runs country households and directs charitable committees — and she brought this same practical cast of mind to the telling of her story, which unfolded with a clarity I have rarely encountered in clients of either sex.</p>
+
+<p>Thornwick Hall had been in the Alderton family for three generations, a substantial property on the eastern edge of Blackthorn Moor in the North Riding of Yorkshire. Her late husband, Sir George Alderton, had died seven months previously — the occasion of the mourning ribbon — of what the local physician had determined to be a cardiac seizure of natural origin. Mrs. Alderton had accepted this verdict, grieved appropriately, and set about the considerable practical business of settling the estate, which was entailed in the male line and had therefore passed to her nephew, Mr. Edmund Alderton, aged twenty-six.</p>
+
+<p class="dialogue">"Edmund is not a wicked young man," she said, with the careful precision of one who has thought deeply about what she wishes to convey, "but he is a weak one, Mr. Holmes. Susceptible to influences. To flatteries. And it is because of a very particular influence that I find myself in your consulting room this morning, having not slept in two days."</p>
+
+<p>The influence in question was one Mr. Corvus Pale — and I must here note that Holmes, who had been listening with his customary stillness, broke it at this name with the faintest movement of his right hand.</p>
+
+<p class="dialogue">"Pale," he repeated. "Pray continue."</p>
+
+<p>Corvus Pale had arrived in the district some four months after Sir George's death, presenting himself as an antiquarian scholar with a particular interest in the moorland archaeology of the region. He had rented a former gamekeeper's cottage on the eastern boundary of the Thornwick estate, had made himself agreeable at local dinners, and had formed with Edmund Alderton what Mrs. Alderton could only describe as an unhealthy intimacy.</p>
+
+<p class="dialogue">"They spend their evenings in the old library," she said, "with the doors locked. Edmund has become furtive, excitable, secretive in ways that are entirely unlike him. But what drove me to London, Mr. Holmes — what made my journey a matter of urgency — was what I discovered three nights ago, beneath the flagstones of the old chapel."</p>
+
+<p>She reached into her reticule and produced a folded paper, which she placed upon Holmes's outstretched hand. He unfolded it with swift, precise fingers and held it toward the lamp. I craned my neck to see. It appeared to be a fragment of parchment — old, certainly, the sort of antiquated material one finds in estate muniment rooms — covered on both sides with a dense, cramped hand in what appeared to be a cipher of some complexity.</p>
+
+<p class="dialogue">"I found this hidden in a cavity beneath the chapel's east flagstone," Mrs. Alderton said. "The stone had been moved recently — the mortar was freshly disturbed. And beside the parchment lay a second object."</p>
+
+<p>From the reticule she produced a small, smooth stone, dark as coal, carved on one face with a symbol I did not recognise — a serpentine line bisecting what appeared to be a compass rose.</p>
+
+<p class="dialogue">"Do you know what this is?" Holmes asked, turning the stone in his fingers.</p>
+
+<p class="dialogue">"I do not. But Edmund does. I showed it to him accidentally — he entered the room before I could conceal it — and the effect upon him was extraordinary. He went very white, demanded to know where I had found it, and when I refused to say, he became — I do not use the word lightly — threatening. My own nephew, Mr. Holmes. A boy I helped raise."</p>
+
+<div class="chapter-divider">Chapter III</div>
+
+<p>Holmes spent the remainder of that morning in silence, the cipher spread before him on the desk, while I attended to two patients at the surgery I maintained in Queen Anne Street. When I returned to Baker Street in the early afternoon, I found the sitting room transformed. The breakfast things had been swept to one side to make room for a library's worth of reference volumes — Holmes's commonplace books, his indices, three volumes of medieval cryptographic studies, and a slim folio I recognised as his own unpublished manuscript on the ciphers of the northern ecclesiastical estates.</p>
+
+<p class="dialogue">"Sit down, Watson," Holmes said, without looking up. "I shall want your opinion in a moment. Your medical opinion, specifically."</p>
+
+<p class="dialogue">"About what?"</p>
+
+<p class="dialogue">"About the symptoms of aconite poisoning administered in sustained small doses over a period of weeks."</p>
+
+<p>I sat down rather abruptly. <span class="dialogue">"Holmes. Do you mean to say—"</span></p>
+
+<p class="dialogue">"Sir George Alderton was not killed by cardiac seizure," Holmes said, setting down his pen and turning to face me with those pale, intent eyes. "He was murdered. Deliberately. Carefully. And by someone with a knowledge of toxicology sufficient to ensure that a provincial physician would find nothing remarkable in the death of a country baronet of sixty-two. The cipher, Watson, is a map — not of geography, but of genealogy. And at its centre is a secret that someone has already killed once to protect."</p>
+
+<p>He proceeded to lay out the results of his morning's work with the methodical clarity that I had come to regard as one of his most remarkable qualities — the ability not merely to reach extraordinary conclusions, but to reconstruct the path by which he had reached them in terms comprehensible to an ordinarily intelligent layman.</p>
+
+<p>The cipher was of a type Holmes called a bilateral transposition with keyword anchoring — a system he had previously encountered in correspondence connected to the old Jacobite intelligence networks, suggesting either that the document was genuinely old, or that its author had deliberately employed an archaic system to suggest antiquity. The decoded text, which Holmes had partially reconstructed, appeared to concern a legal matter — specifically, the existence of a prior marriage contracted by the first Alderton baronet, one Sir Francis Alderton, in Scotland in 1743, some eight years before his officially recorded marriage to the woman whose descendants now held the title.</p>
+
+<p class="dialogue">"If that Scottish marriage was lawful and produced legitimate heirs," Holmes said, "then the current entailment of Thornwick Hall is invalid. The estate does not belong to Edmund Alderton. It belongs to the descendants of the Scottish wife — whoever and wherever they may be."</p>
+
+<p class="dialogue">"Good Lord," I said. "And you think Pale knows this?"</p>
+
+<p class="dialogue">"I think Pale is the descendant," Holmes said quietly. "Or believes himself to be. And I think he has come to Thornwick not as a scholar, but as a claimant — and that he has been using Edmund Alderton's weakness and susceptibility to gain access to the documents that would either prove or disprove his claim. Sir George, I suspect, discovered his identity and his purpose. And Sir George is dead."</p>
+
+<div class="chapter-divider">Chapter IV</div>
+
+<p>We took the night train north. Holmes had telegraphed ahead to the Harrogate constabulary — not to Inspector Gregson, whose jurisdiction did not extend so far, but to a local man, Sergeant Beevers, whose acquaintance Holmes had made during the Hartley business of 1892, and whose reliability he vouched for without elaboration. Mrs. Alderton had returned by an earlier service; we were to meet her at Thornwick Hall the following morning.</p>
+
+<p>The moor at dawn in February is a thing of savage and particular beauty. The carriage that met us at the village station took us along a road that rose gradually from the valley bottom into a landscape that seemed to belong to an older England — treeless, vast, and coloured in the pale greys and sullen browns of winter heather. The Hall itself emerged from this landscape like something that had grown from the ground rather than been built upon it — a long, low Jacobean structure of dark limestone, its many-mullioned windows reflecting the colourless sky, its chimneys trailing thin ribbons of smoke into the still air.</p>
+
+<p>Mrs. Alderton received us in the library, a high, cold room lined from floor to ceiling with the accumulated volumes of three generations. Edmund Alderton was not present; she had, she said, seen neither him nor Pale since the previous evening's dinner, at which both men had been notably agitated and uncommunicative.</p>
+
+<p class="dialogue">"Show me the chapel," Holmes said.</p>
+
+<p>The chapel was a small, ancient building set apart from the main house by a flagged path and a low gate of wrought iron. Its interior smelled of cold stone and old wool and the particular damp that settles into buildings infrequently warmed. Holmes moved through it with the swift, stooped attention of a man reading a language written on the floor — examining the flagstones, the altar, the narrow windows, the iron rings set into the wall for reasons long forgotten.</p>
+
+<p>He found what he was looking for almost immediately: a second cavity beneath the south flagstone, smaller than the first, which had been recently disturbed and recently emptied.</p>
+
+<p class="dialogue">"Someone else has been here," he said. "Last night, I should think. And taken something they did not wish us to find." He paused, crouching over the empty space, and then straightened with a sudden sharpness. "Watson — do you hear that?"</p>
+
+<p>I listened. Through the chapel's thick stone walls, faintly but unmistakably, came the sound of raised voices from somewhere in the direction of the Hall's east wing.</p>
+
+<div class="chapter-divider">Chapter V</div>
+
+<p>We moved at speed across the frosted grass. The voices grew louder as we approached the east wing's lower entrance — two men, one of them Edmund Alderton's light, nervous tenor, the other a voice I had not previously heard: deep, measured, and carrying in it a quality that I can only describe as deliberate patience, the patience of a man who has waited a long time and believes himself at last upon the verge of success.</p>
+
+<p>Holmes tried the door. It opened. We entered.</p>
+
+<p>The room was a small study, evidently used for estate business, its walls hung with maps and accounts ledgers. Edmund Alderton stood with his back to the fireplace — a handsome young man of the kind that wears its anxiety badly, his face flushed and his hands unsteady. Facing him stood Corvus Pale.</p>
+
+<p>I had expected, from the name and the tenor of what Holmes had told me, some figure of villainous cast — a heavy man, perhaps, or a cadaverous one, with the theatrical menace of the criminals one reads of in the penny press. Pale was nothing of the sort. He was a man of perhaps forty, lean and brown-faced, with the weathered look of someone who had spent years outdoors, and eyes of a peculiar dark amber that assessed Holmes and myself with rapid, careful intelligence. He held in one hand a folded document that I recognised, even from the doorway, as the sort of legal instrument drawn up by a meticulous solicitor.</p>
+
+<p class="dialogue">"Mr. Holmes," he said — not as an exclamation, but as a statement of fact. "I had thought you might come. Edmund described your visit yesterday with considerable agitation."</p>
+
+<p class="dialogue">"Mr. Pale," said Holmes pleasantly, advancing into the room. "Or, as I believe you were christened in Inverness in 1855, Mr. Corvus Alderton. That is rather more accurate, is it not?"</p>
+
+<p>Something shifted in Pale's expression — not guilt, precisely, but a kind of careful recalibration.</p>
+
+<p class="dialogue">"My grandmother's name," he said at last. "Yes. I took the maternal surname when I came south. Caution seemed advisable."</p>
+
+<p class="dialogue">"Caution is always advisable," Holmes agreed. "Particularly when one's methods include the administration of taxine alkaloids to a man of sixty-two over a period of six weeks. Caution is somewhat harder to maintain, however, when one has left a detailed correspondence in a language one believed no living scholar could read, in a chapel one believed no one else had thought to examine."</p>
+
+<p>The silence that followed was of the particular quality that descends when all parties understand that the moment of decision has arrived and that the available choices are considerably fewer than had previously been imagined.</p>
+
+<p class="dialogue">"The document you hold," Holmes continued, "contains the marriage record. The affidavit sworn before a Scots notary in November of 1743. I deduced from the cipher's content that a physical copy must exist and that you had located it. You removed it from the chapel last night, fearing that Mrs. Alderton's discovery of the parchment had precipitated my involvement. But a document obtained by a man implicated in a murder is not a document that can be safely produced before a court of law. You have, I think, outmanoeuvred yourself quite thoroughly."</p>
+
+<p>Pale looked at him for a long moment, and in that amber gaze I saw something that surprised me: not rage, and not despair, but a kind of weary, almost philosophical acknowledgement.</p>
+
+<p class="dialogue">"My grandmother told me the story," he said quietly. "Every detail. She made me swear on her deathbed that I would restore what had been taken. Forty years of her life — and his children — and then nothing. Cast aside when a richer match presented itself, and the marriage quietly forgotten. Do you understand what that means, Mr. Holmes? To be erased?"</p>
+
+<p class="dialogue">"I understand it entirely," said Holmes. "And I think there is a legitimate legal claim here that a court might well find compelling, had you pursued it by legitimate means. You chose otherwise. You chose murder. And that choice, Mr. Alderton — Pale — whatever you call yourself — has made every other choice impossible."</p>
+
+<div class="chapter-divider">Chapter VI</div>
+
+<p>Sergeant Beevers arrived within the hour, and the rest proceeded with the necessary formality. Pale — I cannot help continuing to think of him by that name — offered no physical resistance. He walked out into the February morning with the document still in his hand, and I saw him pause at the gate of the flagged path to look back once at the Hall, with an expression that contained in equal measure bitterness and recognition — the look of a man acknowledging, perhaps for the first time, that the thing he had pursued had never truly been within his reach.</p>
+
+<p>Edmund Alderton was shaken to his foundations. He had been, it emerged, genuinely unaware of Pale's ultimate purpose — he had believed the man to be an antiquarian, had been flattered by his attentions, and had granted him access to the library and the estate records in a spirit of generous hospitality that had been comprehensively abused. His distress upon learning the truth about his uncle's death was entirely genuine, and Holmes, who was not by nature a compassionate man in the conventional sense, treated him with a gentleness I found unexpectedly moving.</p>
+
+<p>We dined that evening in the Hall's low-ceilinged dining room, the fire built high against the February cold, the moor invisible beyond the dark windows. Mrs. Alderton sat at the head of the table with the composed authority of a woman who has survived the worst and emerged, if not unchanged, then at least intact. The Scotland Yard man — a Detective Inspector Fenn, dispatched from the county constabulary — had departed with his prisoner. The house felt, paradoxically, both emptier and cleaner for it.</p>
+
+<p class="dialogue">"The question of the claim," said Mrs. Alderton, as we concluded the meal, "is not, I think, settled. If there was a lawful marriage—"</p>
+
+<p class="dialogue">"Then there are likely other descendants," Holmes said. "Pale — Alderton — cannot have been the sole heir of that branch of the family. If the marriage was genuine, there will be a legitimate claimant somewhere who has neither blood on their hands nor documents obtained by theft. I should recommend your solicitor engage an Edinburgh genealogist of the first rank. The truth, if it exists, is worth discovering. The law, if applied honestly, is worth respecting."</p>
+
+<p>Mrs. Alderton looked at him steadily across the candles.</p>
+
+<p class="dialogue">"You are not what I expected, Mr. Holmes," she said at last.</p>
+
+<p class="dialogue">"No one ever is," he replied, with one of those sudden, brief smiles that I had learned, in long years of friendship, to value precisely because of their rarity. "Nor, indeed, are they what we deserve. The world is fortunate enough to afford us, occasionally, better than either."</p>
+
+<p>We returned to London on the morning train. Holmes slept for most of the journey, which I recognised as the recovery of a mechanism pushed to its limits. I watched the moor recede through the carriage window — grey and vast and unknowable, keeping its older secrets still — and thought of the weight of wrongs that accumulate in old houses, in old families, in old papers locked away beneath cold stone.</p>
+
+<p>Holmes, without opening his eyes, said: <span class="dialogue">"You are reflecting on the pathos of the case, Watson. I can hear it in your breathing."</span></p>
+
+<p class="dialogue">"I am," I admitted.</p>
+
+<p class="dialogue">"It is not without its tragic dimensions," he said. "A man destroyed by a legitimate grievance that he prosecuted by illegitimate means. Greek, in its fundamental architecture. But then, most of the genuinely interesting cases are. Go to sleep, Watson. Baker Street awaits, and I rather think the post will have brought something interesting."</p>
+
+<p>It had. But that is a story for another time.</p>
+
+<div class="scene-break">— ✦ —</div>
+
+<p><em>This account was composed by Dr. John H. Watson and is published by the kind permission of his literary executor. The Thornwick Hall estate remains in the possession of the Alderton family. The question of the Scottish marriage was investigated by a genealogist appointed in 1896 and ultimately determined to be unverifiable, the relevant church records having been destroyed in a fire of 1801. Corvus Pale was tried at the Yorkshire Assizes in the spring of 1895, convicted of wilful murder, and executed at Armley Gaol in July of that year. He maintained until the end that his cause was just. Holmes, when informed of this, observed only that most men who do wrong believe themselves to have sufficient reason.</em></p>
+
+</article>
+
+<div class="footer-ornament">✦ ✦ ✦</div>
+
+</body>
+</html>
